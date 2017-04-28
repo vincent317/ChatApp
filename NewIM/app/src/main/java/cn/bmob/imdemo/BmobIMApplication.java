@@ -33,8 +33,8 @@ public class BmobIMApplication extends Application{
     public void onCreate() {
         super.onCreate();
         setInstance(this);
-        //初始化
-        Logger.init("smile");
+        //初始化Logger
+        Logger.init("zhangchaozhou");
         //只有主进程运行的时候才需要初始化
         if (getApplicationInfo().packageName.equals(getMyProcessName())){
             //im初始化

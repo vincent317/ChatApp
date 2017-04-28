@@ -14,6 +14,7 @@ import cn.bmob.imdemo.bean.Conversation;
 import cn.bmob.imdemo.util.TimeUtil;
 import cn.bmob.newim.BmobIM;
 import cn.bmob.newim.bean.BmobIMConversation;
+import cn.bmob.newim.bean.BmobIMConversationType;
 import cn.bmob.newim.bean.BmobIMMessage;
 import cn.bmob.newim.bean.BmobIMMessageType;
 
@@ -25,6 +26,24 @@ public class ConversationAdapter extends BaseRecyclerAdapter<Conversation> {
 
     public ConversationAdapter(Context context, IMutlipleItem<Conversation> items, Collection<Conversation> datas) {
         super(context,items,datas);
+    }
+
+    /**
+     * 获取指定会话类型指定会话id的会话位置
+     * @param type
+     * @param targetId
+     * @return
+     */
+    public int findPosition(BmobIMConversationType type, String targetId) {
+        int index = this.getCount();
+        int position = -1;
+        while(index-- > 0) {
+            if((getItem(index)).getcType().equals(type) && (getItem(index)).getcId().equals(targetId)) {
+                position = index;
+                break;
+            }
+        }
+        return position;
     }
 
     @Override

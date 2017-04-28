@@ -156,6 +156,6 @@ public abstract class ParentWithNaviActivity extends BaseActivity {
     }
 
     public String getCurrentUid(){
-        return BmobUser.getCurrentUser(this,User.class).getObjectId();
+        return BmobUser.getCurrentUser(User.class).getObjectId();
     }
 }

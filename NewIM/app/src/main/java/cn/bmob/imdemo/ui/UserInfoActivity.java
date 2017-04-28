@@ -81,7 +81,7 @@ public class UserInfoActivity extends ParentWithNaviActivity {
         //这个obtain方法才是真正创建一个管理消息发送的会话
         BmobIMConversation conversation = BmobIMConversation.obtain(BmobIMClient.getInstance(), c);
         AddFriendMessage msg =new AddFriendMessage();
-        User currentUser = BmobUser.getCurrentUser(this,User.class);
+        User currentUser = BmobUser.getCurrentUser(User.class);
         msg.setContent("很高兴认识你，可以加个好友吗?");//给对方的一个留言信息
         Map<String,Object> map =new HashMap<>();
         map.put("name", currentUser.getUsername());//发送者姓名，这里只是举个例子，其实可以不需要传发送者的信息过去

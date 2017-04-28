@@ -52,7 +52,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     public ChatAdapter(Context context,BmobIMConversation c) {
         try {
-            currentUid = BmobUser.getCurrentUser(context).getObjectId();
+            currentUid = BmobUser.getCurrentUser().getObjectId();
         } catch (Exception e) {
             e.printStackTrace();
         }

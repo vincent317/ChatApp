@@ -5,7 +5,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -61,7 +60,7 @@ public class SetFragment extends ParentWithNaviFragment {
     @OnClick(R.id.layout_info)
     public void onInfoClick(View view){
         Bundle bundle = new Bundle();
-        bundle.putSerializable("u", BmobUser.getCurrentUser(getActivity(),User.class));
+        bundle.putSerializable("u", BmobUser.getCurrentUser(User.class));
         startActivity(UserInfoActivity.class,bundle);
     }
 

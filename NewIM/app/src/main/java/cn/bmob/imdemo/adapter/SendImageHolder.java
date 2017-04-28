@@ -64,18 +64,18 @@ public class SendImageHolder extends BaseViewHolder {
     final BmobIMImageMessage message = BmobIMImageMessage.buildFromDB(true, msg);
     int status =message.getSendStatus();
     if (status == BmobIMSendStatus.SENDFAILED.getStatus() ||status == BmobIMSendStatus.UPLOADAILED.getStatus()) {
-      iv_fail_resend.setVisibility(View.VISIBLE);
-      progress_load.setVisibility(View.GONE);
-      tv_send_status.setVisibility(View.INVISIBLE);
+        iv_fail_resend.setVisibility(View.VISIBLE);
+        progress_load.setVisibility(View.GONE);
+        tv_send_status.setVisibility(View.INVISIBLE);
     } else if (status== BmobIMSendStatus.SENDING.getStatus()) {
-      progress_load.setVisibility(View.VISIBLE);
-      iv_fail_resend.setVisibility(View.GONE);
-      tv_send_status.setVisibility(View.INVISIBLE);
+        progress_load.setVisibility(View.VISIBLE);
+        iv_fail_resend.setVisibility(View.GONE);
+        tv_send_status.setVisibility(View.INVISIBLE);
     } else {
-      tv_send_status.setVisibility(View.VISIBLE);
-      tv_send_status.setText("已发送");
-      iv_fail_resend.setVisibility(View.GONE);
-      progress_load.setVisibility(View.GONE);
+        tv_send_status.setVisibility(View.VISIBLE);
+        tv_send_status.setText("已发送");
+        iv_fail_resend.setVisibility(View.GONE);
+        progress_load.setVisibility(View.GONE);
     }
 
     //发送的不是远程图片地址，则取本地地址

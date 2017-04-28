@@ -3,23 +3,16 @@ package cn.bmob.imdemo.db;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
-import android.util.Log;
-
-import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import cn.bmob.imdemo.Config;
-import cn.bmob.imdemo.bean.AgreeAddFriendMessage;
 import cn.bmob.imdemo.bean.User;
 import cn.bmob.imdemo.db.dao.DaoMaster;
 import cn.bmob.imdemo.db.dao.DaoSession;
 import cn.bmob.imdemo.db.dao.NewFriendDao;
-import cn.bmob.newim.bean.BmobIMMessage;
-import cn.bmob.newim.bean.BmobIMReceiveStatus;
-import cn.bmob.newim.db.dao.MessageDao;
 import cn.bmob.v3.BmobUser;
 
 
@@ -38,7 +31,7 @@ public class NewFriendManager {
      * @return
      */
     public static NewFriendManager getInstance(Context context) {
-        User user = BmobUser.getCurrentUser(context, User.class);
+        User user = BmobUser.getCurrentUser( User.class);
         String loginId=user.getObjectId();
         if(TextUtils.isEmpty(loginId)){
             throw new RuntimeException("you must login.");

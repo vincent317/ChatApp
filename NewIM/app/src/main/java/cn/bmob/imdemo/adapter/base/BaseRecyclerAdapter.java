@@ -90,6 +90,14 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRe
         return lists.get(position - more);
     }
 
+    /**
+     * 获取总数
+     * @return
+     */
+    public int getCount() {
+        return this.lists == null?0:this.lists.size();
+    }
+
     @Override
     public BaseRecyclerHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         int layoutId = items.getItemLayoutId(viewType);

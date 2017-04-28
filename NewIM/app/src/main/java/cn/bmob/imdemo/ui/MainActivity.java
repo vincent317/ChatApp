@@ -3,7 +3,6 @@ package cn.bmob.imdemo.ui;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -68,7 +67,7 @@ public class MainActivity extends BaseActivity implements ObseverListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //connect server
-        User user = BmobUser.getCurrentUser(this,User.class);
+        User user = BmobUser.getCurrentUser(User.class);
         BmobIM.connect(user.getObjectId(), new ConnectListener() {
             @Override
             public void done(String uid, BmobException e) {

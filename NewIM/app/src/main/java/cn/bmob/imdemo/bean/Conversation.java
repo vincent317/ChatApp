@@ -73,6 +73,10 @@ public abstract class Conversation implements Serializable,Comparable{
         return cId;
     }
 
+    public BmobIMConversationType getcType(){
+        return cType;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
