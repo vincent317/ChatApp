@@ -12,7 +12,7 @@ Android BmobIM SDK v2.0.0之前的版本统称为[BmobOldIM SDK](https://github.
 
 ## 2、Android BmobNewIM SDK 介绍
 
-Android BmobIM SDK v2.0.0开始的版本统称为BmobNewIM SDK，BmobNewIM SDK采用全新架构，设计更加合理规范，API更加简单易用，扩展性强，但不兼容 Android BmobOldIM SDK。
+Android BmobIM SDK v2.0.0开始的版本统称为[BmobNewIM SDK](https://github.com/chaozhouzhang/bmob-newim-demo)，BmobNewIM SDK采用全新架构，设计更加合理规范，API更加简单易用，扩展性强，但不兼容 Android BmobOldIM SDK。
 
 ### 2.1、Android BmobNewIM SDK 特点及其描述
 
@@ -70,7 +70,7 @@ IM SDK 使用Data SDK的BmobFile用于图片、语音等文件消息的发送，
 
 #### 3.1.3、在app下的build.gradle文件中设置jni依赖库的目录，设置后点击Sync Now同步配置
 
-```
+```gradle
 android {
     sourceSets {
         main.jniLibs.srcDirs = ['libs']
@@ -81,7 +81,7 @@ android {
 ### 3.2、自动集成
 
 #### 3.2.1、在Project下的build.gradle文件中添加Bmob的maven仓库地址
-```
+```gradle
 buildscript {
     repositories {
         jcenter()
@@ -107,7 +107,7 @@ task clean(type: Delete) {
 #### 3.2.2、在app下的build.gradle文件中添加dependencies外部依赖库，添加后点击Sync Now同步配置
 
 
-```
+```gradle
 	dependencies {
 	    compile fileTree(dir: 'libs', include: ['*.jar'])
 		//bmob-im：特定版本的bmob-im依赖特定版本的bmob-sdk
@@ -117,11 +117,11 @@ task clean(type: Delete) {
 ```
 
 
-### 3.3配置AndroidManifest.xml
+### 3.3、配置AndroidManifest.xml
 
 #### 3.3.1、 添加Bmob_APP_KEY：
 
-```
+```xml
    <meta-data
 	    android:name="Bmob_APP_KEY"
 	    android:value="Bmob平台的Application ID" />
@@ -132,9 +132,9 @@ task clean(type: Delete) {
 
 
 
-```
-	<!--网络权限 -->
-	<uses-permission android:name="android.permission.INTERNET" />
+```xml
+    <!--网络权限 -->
+    <uses-permission android:name="android.permission.INTERNET" />
     <!-- 监听网络的变化 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
@@ -154,7 +154,7 @@ task clean(type: Delete) {
 ```
 #### 3.3.3、 添加service、receiver标签：
 
-```
+```xml
   <receiver android:name="cn.bmob.newim.core.ConnectChangeReceiver" >
 	    <intent-filter>
 	        <action android:name="cn.bmob.action.RECONNECT" />
@@ -175,12 +175,14 @@ task clean(type: Delete) {
 
 **注：自v2.0.5版本开始，将原来的`BmobImService`名称更换为`BmobIMService`，请务必修改，否则将无法正常使用IM服务。**
 
-#### 3.3.4、注册消息接收器
+### 3.4、代码配置
+#### 3.4.1、注册消息接收器
 
-- 如果你使用的是`NewIM_V2.0.2以后(包含v2.0.2)`的SDK版本,那么你需要自定义消息接收器继承自`BmobIMMessageHandler`来处理服务器发来的消息和离线消息。
+##### 3.4.1.1、如果你使用的是`NewIM_V2.0.2`及以后的版本
+
+1、请自定义消息接收器继承自`BmobIMMessageHandler`来处理服务器发来的消息和离线消息。
 
 ```java
-
 public class DemoMessageHandler extends BmobIMMessageHandler{
 
     @Override
@@ -196,7 +198,7 @@ public class DemoMessageHandler extends BmobIMMessageHandler{
 
 ```
 
-别忘记在Application的onCreate方法中注册这个`DemoMessageHandler`：
+2、在Application的onCreate方法中注册这个`DemoMessageHandler`。
 
 ```java
 
@@ -213,7 +215,9 @@ public class BmobIMApplication extends Application{
 }
 ```
 
-- 如果你使用的SDK版本是`NewIM_V2.0.1`,那么你需要在应用中创建一个广播消息接收器，用于接收服务器发来的消息。
+##### 3.4.1.2、如果你使用的SDK版本是`NewIM_V2.0.1`
+
+1、请创建一个广播消息接收器，用于接收服务器发来的消息。
 
 ```java
 
@@ -229,7 +233,7 @@ public class MessageReceiver extends BroadcastReceiver {
 
 ```
 
-同样，别忘记在`AndroidManifest.xml`中注册这个receiver
+2、在`AndroidManifest.xml`中注册此receiver。
 
 ```xml
 <receiver
@@ -242,7 +246,7 @@ public class MessageReceiver extends BroadcastReceiver {
 
 ```
 
-### 初始化
+#### 3.4.2、初始化BmobNewIM SDK
 
 在Application的onCreate方法中调用`BmobIM.init(context)`
 
@@ -288,7 +292,8 @@ public class BmobIMApplication extends Application{
 1. 初始化方法包含了BmobSDK的初始化步骤，故无需再初始化BmobSDK
 2. 在初始化的时候，最好做下判断：只有主进程运行的时候才开始初始化，避免资源浪费。
 
-### 服务器连接
+### 3.5、代码使用
+#### 3.5.1服务器连接
 
 - 连接服务器：
 
@@ -333,9 +338,9 @@ BmobIM.getInstance().disConnect();
         });
 
 ```
-## 会话
+#### 3.5.2会话
 
-### 创建会话
+##### 3.5.2.1创建会话
 
 新版IM采用会话（`BmobIMConversation`）管理消息(`BmobIMMessage`)的方式，即消息的查询、发送和删除等操作均在指定会话下进行，因此需要获取指定会话信息并创建会话实例。
 
