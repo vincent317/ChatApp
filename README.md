@@ -30,7 +30,6 @@ Android BmobIM SDK v2.0.0开始的版本统称为[BmobNewIM SDK](https://github.
 |------------------------------|--------------------------------|
 | BmobNewIM_(版本号)_(发布日期).jar| BmobNewIM的核心SDK|
 | androidasync_2.1.6.jar| 用于协议通讯|
-| bmob_im_notification_strings.xml| 用于通知栏显示|
 
 ### 2.3、IM SDK和Data SDK的版本对应关系
 
