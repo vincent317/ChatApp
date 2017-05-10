@@ -1,5 +1,4 @@
-# bmob-newim-demo
-## 1、Android BmobOldIM SDK 回顾
+## 1、BmobOldIM SDK 回顾
 
 Android BmobIM SDK v2.0.0之前的版本统称为[BmobOldIM SDK](https://github.com/bmob/bmob-android-im-sdk) ，BmobOldIM SDK已经开源但不再进行维护，请开发者集成Android BmobNewIM SDK进行开发。
 
@@ -10,7 +9,7 @@ Android BmobIM SDK v2.0.0之前的版本统称为[BmobOldIM SDK](https://github.
 | API设计不够合理规范且不易扩展	    | 
 | 聊天消息出现接收延迟或丢失         | 
 
-## 2、Android BmobNewIM SDK 介绍
+## 2、BmobNewIM SDK 介绍
 
 Android BmobIM SDK v2.0.0开始的版本统称为[BmobNewIM SDK](https://github.com/chaozhouzhang/bmob-newim-demo)，BmobNewIM SDK采用全新架构，设计更加合理规范，API更加简单易用，扩展性强，但不兼容 Android BmobOldIM SDK。
 
@@ -46,7 +45,7 @@ IM SDK 使用Data SDK的BmobFile用于图片、语音等文件消息的发送，
 | bmob-im:2.0.5| bmob-sdk:3.4.7-aar|
 | bmob-im:2.0.6| bmob-sdk:3.5.5| 
            
-## 3、Android BmobNewIM SDK 集成手册
+## 3、BmobNewIM SDK 集成
 
 ### 3.1、手动集成
 
@@ -64,7 +63,6 @@ IM SDK 使用Data SDK的BmobFile用于图片、语音等文件消息的发送，
 | 文件     | 使用          |
 |------------------------------|--------------------------------|
 | libs| 外部依赖库，拷贝于工程的libs文件夹；自Data SDK v3.4.7开始，加入libbmob.so文件；自Data SDK v3.5.2开始，加入libBmobStat.so文件。|
-| values |资源文件，拷贝于工程的values文件夹，用于通知栏提示等| 
 | NewIM_V2.x.x_Demo|开发示例，开发环境是Android Studio，功能是陌生人以及好友聊天|
 
 #### 3.1.3、在app下的build.gradle文件中设置jni依赖库的目录，设置后点击Sync Now同步配置
@@ -291,7 +289,7 @@ public class BmobIMApplication extends Application{
 1. 初始化方法包含了BmobSDK的初始化步骤，故无需再初始化BmobSDK。
 2. 在初始化的时候，最好做下判断：只有主进程运行的时候才开始初始化，避免资源浪费。
 
-## 4、代码使用
+## 4、BmobNewIM SDK 使用
 ### 4.1、服务器连接
 
 #### 4.1.1、连接
