@@ -3,6 +3,7 @@ package cn.bmob.imdemo.ui;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -23,6 +24,7 @@ import cn.bmob.imdemo.ui.fragment.ConversationFragment;
 import cn.bmob.imdemo.ui.fragment.SetFragment;
 import cn.bmob.imdemo.util.IMMLeaks;
 import cn.bmob.newim.BmobIM;
+import cn.bmob.newim.bean.BmobIMUserInfo;
 import cn.bmob.newim.core.ConnectionStatus;
 import cn.bmob.newim.event.MessageEvent;
 import cn.bmob.newim.event.OfflineMessageEvent;
@@ -38,7 +40,7 @@ import cn.bmob.v3.exception.BmobException;
  * @project:MainActivity
  * @date :2016-01-15-18:23
  */
-public class MainActivity extends BaseActivity implements ObseverListener{
+public class MainActivity extends BaseActivity implements ObseverListener {
 
     @Bind(R.id.btn_conversation)
     Button btn_conversation;
@@ -67,29 +69,46 @@ public class MainActivity extends BaseActivity implements ObseverListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //connect server
-        User user = BmobUser.getCurrentUser(User.class);
-        BmobIM.connect(user.getObjectId(), new ConnectListener() {
-            @Override
-            public void done(String uid, BmobException e) {
-                if (e == null) {
-                    Logger.i("connect success");
-                    //服务器连接成功就发送一个更新事件，同步更新会话及主页的小红点
-                    EventBus.getDefault().post(new RefreshEvent());
-                } else {
-                    Logger.e(e.getErrorCode() + "/" + e.getMessage());
+        final User user = BmobUser.getCurrentUser(User.class);
+        /**
+         * FIXME 连接前先判断uid收为空
+         */
+        if (!TextUtils.isEmpty(user.getObjectId())) {
+            BmobIM.connect(user.getObjectId(), new ConnectListener() {
+                @Override
+                public void done(String uid, BmobException e) {
+                    if (e == null) {
+                        Logger.i("connect success");
+                        //服务器连接成功就发送一个更新事件，同步更新会话及主页的小红点
+                        EventBus.getDefault().post(new RefreshEvent());
+                        /**
+                         * FIXME 连接成功后再进行修改本地用户信息的操作，并查询本地用户信息
+                         */
+                        BmobIM.getInstance().
+                                updateUserInfo(new BmobIMUserInfo(user.getObjectId(),
+                                        user.getUsername(), user.getAvatar()));
+                        BmobIMUserInfo bmobIMUserInfo = BmobIM.getInstance().
+                                getUserInfo(BmobUser.getCurrentUser().getObjectId());
+                        Logger.i(bmobIMUserInfo.getUserId() + "\n" + bmobIMUserInfo.getName());
+                    } else {
+                        Logger.e(e);
+                    }
                 }
-            }
-        });
-        //监听连接状态，也可通过BmobIM.getInstance().getCurrentStatus()来获取当前的长连接状态
-        BmobIM.getInstance().setOnConnectStatusChangeListener(new ConnectStatusChangeListener() {
-            @Override
-            public void onChange(ConnectionStatus status) {
-                toast("" + status.getMsg());
-            }
-        });
+            });
+            //监听连接状态，也可通过BmobIM.getInstance().getCurrentStatus()来获取当前的长连接状态
+            BmobIM.getInstance().setOnConnectStatusChangeListener(new ConnectStatusChangeListener() {
+                @Override
+                public void onChange(ConnectionStatus status) {
+                    toast(status.getMsg());
+                }
+            });
+        }
         //解决leancanary提示InputMethodManager内存泄露的问题
         IMMLeaks.fixFocusedViewLeak(getApplication());
+
+
     }
+
 
     @Override
     protected void initView() {
@@ -97,16 +116,16 @@ public class MainActivity extends BaseActivity implements ObseverListener{
         mTabs = new Button[3];
         mTabs[0] = btn_conversation;
         mTabs[1] = btn_contact;
-        mTabs[2] =btn_set;
+        mTabs[2] = btn_set;
         mTabs[0].setSelected(true);
         initTab();
     }
 
-    private void initTab(){
+    private void initTab() {
         conversationFragment = new ConversationFragment();
         setFragment = new SetFragment();
-        contactFragment=new ContactFragment();
-        fragments = new Fragment[] {conversationFragment, contactFragment,setFragment};
+        contactFragment = new ContactFragment();
+        fragments = new Fragment[]{conversationFragment, contactFragment, setFragment};
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, conversationFragment).
                 add(R.id.fragment_container, contactFragment)
@@ -130,7 +149,7 @@ public class MainActivity extends BaseActivity implements ObseverListener{
         onTabIndex(index);
     }
 
-    private void onTabIndex(int index){
+    private void onTabIndex(int index) {
         if (currentTabIndex != index) {
             FragmentTransaction trx = getSupportFragmentManager().beginTransaction();
             trx.hide(fragments[currentTabIndex]);
@@ -160,42 +179,48 @@ public class MainActivity extends BaseActivity implements ObseverListener{
         BmobIM.getInstance().clear();
     }
 
-    /**注册消息接收事件
+    /**
+     * 注册消息接收事件
+     *
      * @param event
      */
     @Subscribe
-    public void onEventMainThread(MessageEvent event){
+    public void onEventMainThread(MessageEvent event) {
         checkRedPoint();
     }
 
-    /**注册离线消息接收事件
+    /**
+     * 注册离线消息接收事件
+     *
      * @param event
      */
     @Subscribe
-    public void onEventMainThread(OfflineMessageEvent event){
+    public void onEventMainThread(OfflineMessageEvent event) {
         checkRedPoint();
     }
 
-    /**注册自定义消息接收事件
+    /**
+     * 注册自定义消息接收事件
+     *
      * @param event
      */
     @Subscribe
-    public void onEventMainThread(RefreshEvent event){
+    public void onEventMainThread(RefreshEvent event) {
         log("---主页接收到自定义消息---");
         checkRedPoint();
     }
 
-    private void checkRedPoint(){
-        int count = (int)BmobIM.getInstance().getAllUnReadCount();
-        if(count>0){
+    private void checkRedPoint() {
+        int count = (int) BmobIM.getInstance().getAllUnReadCount();
+        if (count > 0) {
             iv_conversation_tips.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             iv_conversation_tips.setVisibility(View.GONE);
         }
         //是否有好友添加的请求
-        if(NewFriendManager.getInstance(this).hasNewFriendInvitation()){
+        if (NewFriendManager.getInstance(this).hasNewFriendInvitation()) {
             iv_contact_tips.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             iv_contact_tips.setVisibility(View.GONE);
         }
     }

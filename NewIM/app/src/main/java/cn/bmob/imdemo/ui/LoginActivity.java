@@ -49,15 +49,14 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void done(Object o, BmobException e) {
                 if (e == null) {
-                    User user =(User)o;
-                    BmobIM.getInstance().updateUserInfo(new BmobIMUserInfo(user.getObjectId(), user.getUsername(), user.getAvatar()));
-                    startActivity(MainActivity.class, null, true);
+                   startActivity(MainActivity.class, null, true);
                 } else {
                     toast(e.getMessage() + "(" + e.getErrorCode() + ")");
                 }
             }
         });
     }
+
 
     @OnClick(R.id.tv_register)
     public void onRegisterClick(View view){
