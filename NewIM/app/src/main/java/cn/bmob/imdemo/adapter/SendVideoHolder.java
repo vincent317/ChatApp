@@ -62,7 +62,7 @@ public class SendVideoHolder extends BaseViewHolder implements View.OnClickListe
     tv_time.setText(time);
 
     int status =message.getSendStatus();
-    if (status == BmobIMSendStatus.SENDFAILED.getStatus()) {
+    if (status == BmobIMSendStatus.SEND_FAILED.getStatus()) {
       iv_fail_resend.setVisibility(View.VISIBLE);
       progress_load.setVisibility(View.GONE);
     } else if (status== BmobIMSendStatus.SENDING.getStatus()) {

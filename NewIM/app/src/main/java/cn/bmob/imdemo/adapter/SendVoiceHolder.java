@@ -66,7 +66,7 @@ public class SendVoiceHolder extends BaseViewHolder {
     tv_voice_length.setText(message.getDuration()+"\''");
 
     int status =message.getSendStatus();
-    if (status == BmobIMSendStatus.SENDFAILED.getStatus()||status == BmobIMSendStatus.UPLOADAILED.getStatus()) {//发送失败/上传失败
+    if (status == BmobIMSendStatus.SEND_FAILED.getStatus()||status == BmobIMSendStatus.UPLOAD_FAILED.getStatus()) {//发送失败/上传失败
         iv_fail_resend.setVisibility(View.VISIBLE);
         progress_load.setVisibility(View.GONE);
         tv_send_status.setVisibility(View.INVISIBLE);

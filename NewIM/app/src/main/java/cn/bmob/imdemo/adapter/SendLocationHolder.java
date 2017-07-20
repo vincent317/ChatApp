@@ -66,7 +66,7 @@ public class SendLocationHolder extends BaseViewHolder {
     final BmobIMLocationMessage message = BmobIMLocationMessage.buildFromDB(msg);
     tv_location.setText(message.getAddress());
     int status =message.getSendStatus();
-    if (status == BmobIMSendStatus.SENDFAILED.getStatus()) {
+    if (status == BmobIMSendStatus.SEND_FAILED.getStatus()) {
       iv_fail_resend.setVisibility(View.VISIBLE);
       progress_load.setVisibility(View.GONE);
     } else if (status== BmobIMSendStatus.SENDING.getStatus()) {

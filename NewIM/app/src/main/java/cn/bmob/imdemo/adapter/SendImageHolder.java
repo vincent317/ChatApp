@@ -63,7 +63,7 @@ public class SendImageHolder extends BaseViewHolder {
     //
     final BmobIMImageMessage message = BmobIMImageMessage.buildFromDB(true, msg);
     int status =message.getSendStatus();
-    if (status == BmobIMSendStatus.SENDFAILED.getStatus() ||status == BmobIMSendStatus.UPLOADAILED.getStatus()) {
+    if (status == BmobIMSendStatus.SEND_FAILED.getStatus() ||status == BmobIMSendStatus.UPLOAD_FAILED.getStatus()) {
         iv_fail_resend.setVisibility(View.VISIBLE);
         progress_load.setVisibility(View.GONE);
         tv_send_status.setVisibility(View.INVISIBLE);
