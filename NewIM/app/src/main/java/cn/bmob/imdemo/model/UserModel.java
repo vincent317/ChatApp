@@ -204,7 +204,7 @@ public class UserModel extends BaseModel {
         String title = conversation.getConversationTitle();
         String icon = conversation.getConversationIcon();
         //SDK内部将新会话的会话标题用objectId表示，因此需要比对用户名和私聊会话标题，后续会根据会话类型进行判断
-        if (!username.equals(title) || !avatar.equals(icon)) {
+        if (!username.equals(title) || (avatar != null && !avatar.equals(icon))) {
             UserModel.getInstance().queryUserInfo(info.getUserId(), new QueryUserListener() {
                 @Override
                 public void done(User s, BmobException e) {
