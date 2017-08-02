@@ -40,50 +40,8 @@ public class UserModel extends BaseModel {
     }
 
     /**
-     * 登录
+     * TODO 用户管理：2.1、注册
      *
-     * @param username
-     * @param password
-     * @param listener
-     */
-    public void login(String username, String password, final LogInListener listener) {
-        if (TextUtils.isEmpty(username)) {
-            listener.done(null, new BmobException(CODE_NULL, "请填写用户名"));
-            return;
-        }
-        if (TextUtils.isEmpty(password)) {
-            listener.done(null, new BmobException(CODE_NULL, "请填写密码"));
-            return;
-        }
-        final User user = new User();
-        user.setUsername(username);
-        user.setPassword(password);
-        user.login(new SaveListener<User>() {
-            @Override
-            public void done(User user, BmobException e) {
-                if (e == null) {
-                    listener.done(getCurrentUser(), null);
-                } else {
-                    listener.done(user, e);
-                }
-            }
-        });
-
-
-    }
-
-    /**
-     * 退出登录
-     */
-    public void logout() {
-        BmobUser.logOut();
-    }
-
-    public User getCurrentUser() {
-        return BmobUser.getCurrentUser(User.class);
-    }
-
-    /**
      * @param username
      * @param password
      * @param pwdagain
@@ -119,12 +77,58 @@ public class UserModel extends BaseModel {
                 }
             }
         });
-
-
     }
 
     /**
-     * 查询用户
+     * TODO 用户管理：2.2、登录
+     *
+     * @param username
+     * @param password
+     * @param listener
+     */
+    public void login(String username, String password, final LogInListener listener) {
+        if (TextUtils.isEmpty(username)) {
+            listener.done(null, new BmobException(CODE_NULL, "请填写用户名"));
+            return;
+        }
+        if (TextUtils.isEmpty(password)) {
+            listener.done(null, new BmobException(CODE_NULL, "请填写密码"));
+            return;
+        }
+        final User user = new User();
+        user.setUsername(username);
+        user.setPassword(password);
+        user.login(new SaveListener<User>() {
+            @Override
+            public void done(User user, BmobException e) {
+                if (e == null) {
+                    listener.done(getCurrentUser(), null);
+                } else {
+                    listener.done(user, e);
+                }
+            }
+        });
+    }
+
+    /**
+     * TODO  用户管理：2.3、退出登录
+     */
+    public void logout() {
+        BmobUser.logOut();
+    }
+
+    /**
+     * TODO 用户管理：2.4、获取当前用户
+     *
+     * @return
+     */
+    public User getCurrentUser() {
+        return BmobUser.getCurrentUser(User.class);
+    }
+
+
+    /**
+     * TODO 用户管理：2.5、查询用户
      *
      * @param username
      * @param limit
@@ -156,12 +160,10 @@ public class UserModel extends BaseModel {
                 }
             }
         });
-
-
     }
 
     /**
-     * 查询用户信息
+     * TODO 用户管理：2.6、查询指定用户信息
      *
      * @param objectId
      * @param listener
@@ -185,8 +187,6 @@ public class UserModel extends BaseModel {
                         }
                     }
                 });
-
-
     }
 
     /**
@@ -200,24 +200,24 @@ public class UserModel extends BaseModel {
         final BmobIMUserInfo info = event.getFromUserInfo();
         final BmobIMMessage msg = event.getMessage();
         String username = info.getName();
+        String avatar = info.getAvatar();
         String title = conversation.getConversationTitle();
-        Logger.i("" + username + "," + title);
-        //sdk内部，将新会话的会话标题用objectId表示，因此需要比对用户名和会话标题--单聊，后续会根据会话类型进行判断
-        if (!username.equals(title)) {
+        String icon = conversation.getConversationIcon();
+        //SDK内部将新会话的会话标题用objectId表示，因此需要比对用户名和私聊会话标题，后续会根据会话类型进行判断
+        if (!username.equals(title) || !avatar.equals(icon)) {
             UserModel.getInstance().queryUserInfo(info.getUserId(), new QueryUserListener() {
                 @Override
                 public void done(User s, BmobException e) {
                     if (e == null) {
                         String name = s.getUsername();
                         String avatar = s.getAvatar();
-                        Logger.i("query success：" + name + "," + avatar);
                         conversation.setConversationIcon(avatar);
                         conversation.setConversationTitle(name);
                         info.setName(name);
                         info.setAvatar(avatar);
-                        //更新用户资料
+                        //TODO 用户管理：2.7、更新用户资料，用于在会话页面、聊天页面以及个人信息页面显示
                         BmobIM.getInstance().updateUserInfo(info);
-                        //更新会话资料-如果消息是暂态消息，则不更新会话资料
+                        //TODO 会话：4.7、更新会话资料-如果消息是暂态消息，则不更新会话资料
                         if (!msg.isTransient()) {
                             BmobIM.getInstance().updateConversation(conversation);
                         }
@@ -232,9 +232,8 @@ public class UserModel extends BaseModel {
         }
     }
 
-    /**
-     * 同意添加好友：1、发送同意添加的请求，2、添加对方到自己的好友列表中
-     */
+
+    //TODO 好友管理：9.12、添加好友
     public void agreeAddFriend(User friend, SaveListener<String> listener) {
         Friend f = new Friend();
         User user = BmobUser.getCurrentUser(User.class);
@@ -248,6 +247,7 @@ public class UserModel extends BaseModel {
      *
      * @param listener
      */
+    //TODO 好友管理：9.2、查询好友
     public void queryFriends(final FindListener<Friend> listener) {
         BmobQuery<Friend> query = new BmobQuery<>();
         User user = BmobUser.getCurrentUser(User.class);
@@ -268,8 +268,6 @@ public class UserModel extends BaseModel {
                 }
             }
         });
-
-
     }
 
     /**
@@ -278,6 +276,7 @@ public class UserModel extends BaseModel {
      * @param f
      * @param listener
      */
+    //TODO 好友管理：9.3、删除好友
     public void deleteFriend(Friend f, UpdateListener listener) {
         Friend friend = new Friend();
         friend.delete(f.getObjectId(), listener);

@@ -165,7 +165,6 @@ public class ConversationFragment extends ParentWithNaviFragment {
       查询本地会话
      */
     public void query(){
-//        adapter.bindDatas(BmobIM.getInstance().loadAllConversation());
         adapter.bindDatas(getConversations());
         adapter.notifyDataSetChanged();
         sw_refresh.setRefreshing(false);
@@ -179,6 +178,7 @@ public class ConversationFragment extends ParentWithNaviFragment {
         //添加会话
         List<Conversation> conversationList = new ArrayList<>();
         conversationList.clear();
+        //TODO 会话：4.2、查询全部会话
         List<BmobIMConversation> list =BmobIM.getInstance().loadAllConversation();
         if(list!=null && list.size()>0){
             for (BmobIMConversation item:list){

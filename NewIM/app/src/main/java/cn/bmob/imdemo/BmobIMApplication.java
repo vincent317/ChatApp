@@ -16,15 +16,19 @@ import cn.bmob.newim.BmobIM;
  * @project:BmobIMApplication
  * @date :2016-01-13-10:19
  */
-public class BmobIMApplication extends Application{
+//TODO 集成：1.7、自定义Application，并在AndroidManifest.xml中配置
+public class BmobIMApplication extends Application {
 
     private static BmobIMApplication INSTANCE;
-    public static BmobIMApplication INSTANCE(){
+
+    public static BmobIMApplication INSTANCE() {
         return INSTANCE;
     }
+
     private void setInstance(BmobIMApplication app) {
         setBmobIMApplication(app);
     }
+
     private static void setBmobIMApplication(BmobIMApplication a) {
         BmobIMApplication.INSTANCE = a;
     }
@@ -33,21 +37,18 @@ public class BmobIMApplication extends Application{
     public void onCreate() {
         super.onCreate();
         setInstance(this);
-        //初始化Logger
-        Logger.init("zhangchaozhou");
-        //只有主进程运行的时候才需要初始化
-        if (getApplicationInfo().packageName.equals(getMyProcessName())){
-            //im初始化
+        //TODO 1.8、初始化IM SDK，并注册消息接收器，只有主进程运行的时候才需要初始化
+        if (getApplicationInfo().packageName.equals(getMyProcessName())) {
             BmobIM.init(this);
-            //注册消息接收器
             BmobIM.registerDefaultMessageHandler(new DemoMessageHandler(this));
         }
-        //uil初始化
+        Logger.init("BmobNewIMDemo");
         UniversalImageLoader.initImageLoader(this);
     }
 
     /**
      * 获取当前运行的进程名
+     *
      * @return
      */
     public static String getMyProcessName() {

@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.orhanobut.logger.Logger;
+
 import java.util.List;
 
 import butterknife.Bind;
@@ -24,7 +26,7 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 
 /**
- * 搜索好友
+ * 搜索用户
  *
  * @author :smile
  * @project:SearchUserActivity
@@ -45,7 +47,7 @@ public class SearchUserActivity extends ParentWithNaviActivity {
 
     @Override
     protected String title() {
-        return "搜索好友";
+        return "搜索用户";
     }
 
     @Override
@@ -105,7 +107,7 @@ public class SearchUserActivity extends ParentWithNaviActivity {
                             sw_refresh.setRefreshing(false);
                             adapter.setDatas(null);
                             adapter.notifyDataSetChanged();
-                            toast(e.getMessage() + "(" + e.getErrorCode() + ")");
+                            Logger.e(e);
                         }
                     }
                 }

@@ -58,7 +58,7 @@ public class ConversationHolder extends BaseViewHolder {
       ViewUtil.setAvatar(conversation.getConversationIcon(), R.mipmap.head, iv_recent_avatar);
       //会话标题
       tv_recent_name.setText(conversation.getConversationTitle());
-      //查询指定未读消息数
+      //TODO 会话：4.3、查询指定会话下的未读消息数
       long unread = BmobIM.getInstance().getUnReadCount(conversation.getConversationId());
       if(unread>0){
           tv_recent_unread.setVisibility(View.VISIBLE);

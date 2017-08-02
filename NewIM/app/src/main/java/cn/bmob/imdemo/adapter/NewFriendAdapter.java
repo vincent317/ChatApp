@@ -46,13 +46,14 @@ public class NewFriendAdapter extends BaseRecyclerAdapter<NewFriend> {
         holder.setText(R.id.tv_recent_name, add == null ? "未知" : add.getName());
         holder.setText(R.id.tv_recent_msg, add == null ? "未知" : add.getMsg());
         Integer status = add.getStatus();
-        Logger.i("bindData:" + status + "," + add.getUid() + "," + add.getTime());
-        if (status == null || status == Config.STATUS_VERIFY_NONE || status == Config.STATUS_VERIFY_READED) {//未添加/已读未添加
+        //当状态是未添加或者是已读未添加
+        if (status == null || status == Config.STATUS_VERIFY_NONE || status == Config.STATUS_VERIFY_READED) {
             holder.setText(R.id.btn_aggree, "接受");
             holder.setEnabled(R.id.btn_aggree, true);
             holder.setOnClickListener(R.id.btn_aggree, new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {//发送消息
+                public void onClick(View v) {
+                    //TODO 1、添加好友
                     agreeAdd(add, new SaveListener<Object>() {
                         @Override
                         public void done(Object o, BmobException e) {
@@ -75,7 +76,7 @@ public class NewFriendAdapter extends BaseRecyclerAdapter<NewFriend> {
     }
 
     /**
-     * 添加到好友表中...
+     * TODO 好友管理：9.10、添加到好友表中再发送同意添加好友的消息
      *
      * @param add
      * @param listener
@@ -88,6 +89,7 @@ public class NewFriendAdapter extends BaseRecyclerAdapter<NewFriend> {
                     @Override
                     public void done(String s, BmobException e) {
                         if (e == null) {
+                            //TODO 2、发送同意添加好友的消息
                             sendAgreeAddFriendMessage(add, listener);
                         } else {
                             Logger.e(e.getMessage());
@@ -98,28 +100,29 @@ public class NewFriendAdapter extends BaseRecyclerAdapter<NewFriend> {
     }
 
     /**
-     * 发送同意添加好友的请求
+     * 发送同意添加好友的消息
      */
+    //TODO 好友管理：9.8、发送同意添加好友
     private void sendAgreeAddFriendMessage(final NewFriend add, final SaveListener<Object> listener) {
         BmobIMUserInfo info = new BmobIMUserInfo(add.getUid(), add.getName(), add.getAvatar());
-        //如果为true,则表明为暂态会话，也就是说该会话仅执行发送消息的操作，不会保存会话和消息到本地数据库中
-        BmobIMConversation c = BmobIM.getInstance().startPrivateConversation(info, true, null);
-        //这个obtain方法才是真正创建一个管理消息发送的会话
-        BmobIMConversation conversation = BmobIMConversation.obtain(BmobIMClient.getInstance(), c);
+        //TODO 会话：4.1、创建一个暂态会话入口，发送同意好友请求
+        BmobIMConversation conversationEntrance = BmobIM.getInstance().startPrivateConversation(info, true, null);
+        //TODO 消息：5.1、根据会话入口获取消息管理，发送同意好友请求
+        BmobIMConversation messageManager = BmobIMConversation.obtain(BmobIMClient.getInstance(), conversationEntrance);
         //而AgreeAddFriendMessage的isTransient设置为false，表明我希望在对方的会话数据库中保存该类型的消息
         AgreeAddFriendMessage msg = new AgreeAddFriendMessage();
         final User currentUser = BmobUser.getCurrentUser(User.class);
-        msg.setContent("我通过了你的好友验证请求，我们可以开始 聊天了!");//---这句话是直接存储到对方的消息表中的
+        msg.setContent("我通过了你的好友验证请求，我们可以开始 聊天了!");//这句话是直接存储到对方的消息表中的
         Map<String, Object> map = new HashMap<>();
         map.put("msg", currentUser.getUsername() + "同意添加你为好友");//显示在通知栏上面的内容
         map.put("uid", add.getUid());//发送者的uid-方便请求添加的发送方找到该条添加好友的请求
         map.put("time", add.getTime());//添加好友的请求时间
         msg.setExtraMap(map);
-        conversation.sendMessage(msg, new MessageSendListener() {
+        messageManager.sendMessage(msg, new MessageSendListener() {
             @Override
             public void done(BmobIMMessage msg, BmobException e) {
                 if (e == null) {//发送成功
-                    //修改本地的好友请求记录
+                    //TODO 3、修改本地的好友请求记录
                     NewFriendManager.getInstance(context).updateNewFriend(add, Config.STATUS_VERIFIED);
                     listener.done(msg, e);
                 } else {//发送失败

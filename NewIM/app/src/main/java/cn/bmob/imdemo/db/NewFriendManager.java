@@ -22,7 +22,7 @@ import cn.bmob.v3.BmobUser;
 public class NewFriendManager {
 
     private DaoMaster.DevOpenHelper openHelper;
-    Context mContecxt;
+    Context mContext;
     String uid=null;
     private static HashMap<String, NewFriendManager> daoMap = new HashMap<>();
 
@@ -46,10 +46,10 @@ public class NewFriendManager {
 
     private NewFriendManager(Context context, String uId){
         clear();
-        this.mContecxt =context.getApplicationContext();
+        this.mContext =context.getApplicationContext();
         this.uid=uId;
         String DBName = uId+".demodb";
-        this.openHelper = new DaoMaster.DevOpenHelper(mContecxt, DBName, null);
+        this.openHelper = new DaoMaster.DevOpenHelper(mContext, DBName, null);
     }
 
     /**
@@ -59,7 +59,7 @@ public class NewFriendManager {
         if(openHelper !=null) {
             openHelper.close();
             openHelper = null;
-            mContecxt=null;
+            mContext=null;
             uid =null;
         }
     }

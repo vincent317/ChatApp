@@ -9,7 +9,6 @@ import java.util.List;
 
 import cn.bmob.imdemo.R;
 import cn.bmob.imdemo.ui.ChatActivity;
-import cn.bmob.imdemo.util.TimeUtil;
 import cn.bmob.newim.BmobIM;
 import cn.bmob.newim.bean.BmobIMConversation;
 import cn.bmob.newim.bean.BmobIMConversationType;
@@ -93,6 +92,7 @@ public class PrivateConversation extends Conversation{
 
     @Override
     public int getUnReadCount() {
+        //TODO 会话：4.3、查询指定会话下的未读消息数
         return (int)BmobIM.getInstance().getUnReadCount(conversation.getConversationId());
     }
 
@@ -110,8 +110,8 @@ public class PrivateConversation extends Conversation{
 
     @Override
     public void onLongClick(Context context) {
-        //以下两种方式均可以删除会话
-//        BmobIM.getInstance().deleteConversation(conversation.getConversationId());
+        //TODO 会话：4.5、删除会话，以下两种方式均可以删除会话
+        //BmobIM.getInstance().deleteConversation(conversation.getConversationId());
         BmobIM.getInstance().deleteConversation(conversation);
     }
 }

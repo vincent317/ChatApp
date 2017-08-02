@@ -2,43 +2,54 @@ package cn.bmob.imdemo.bean;
 
 import android.text.TextUtils;
 
+import com.orhanobut.logger.Logger;
+
 import org.json.JSONObject;
 
 import cn.bmob.imdemo.Config;
 import cn.bmob.imdemo.db.NewFriend;
 import cn.bmob.newim.bean.BmobIMExtraMessage;
 import cn.bmob.newim.bean.BmobIMMessage;
-import com.orhanobut.logger.Logger;
 
-/**添加好友请求
+/**
+ * 添加好友请求
+ *
  * @author :smile
  * @project:AddFriendMessage
  * @date :2016-01-30-17:28
  */
-public class AddFriendMessage extends BmobIMExtraMessage{
+//TODO 自定义消息：7.2、自定义消息类型，用于发送添加好友请求
+//TODO 好友管理：9.5、自定义添加好友的消息类型
+public class AddFriendMessage extends BmobIMExtraMessage {
 
-    public AddFriendMessage(){}
 
-    /**将BmobIMMessage转成NewFriend
+    public static final String ADD = "add";
+
+    public AddFriendMessage() {
+    }
+
+    /**
+     * 将BmobIMMessage转成NewFriend
+     *
      * @param msg 消息
      * @return
      */
-    public static NewFriend convert(BmobIMMessage msg){
-        NewFriend add =new NewFriend();
+    public static NewFriend convert(BmobIMMessage msg) {
+        NewFriend add = new NewFriend();
         String content = msg.getContent();
         add.setMsg(content);
         add.setTime(msg.getCreateTime());
         add.setStatus(Config.STATUS_VERIFY_NONE);
         try {
             String extra = msg.getExtra();
-            if(!TextUtils.isEmpty(extra)){
-                JSONObject json =new JSONObject(extra);
+            if (!TextUtils.isEmpty(extra)) {
+                JSONObject json = new JSONObject(extra);
                 String name = json.getString("name");
                 add.setName(name);
                 String avatar = json.getString("avatar");
                 add.setAvatar(avatar);
                 add.setUid(json.getString("uid"));
-            }else{
+            } else {
                 Logger.i("AddFriendMessage的extra为空");
             }
         } catch (Exception e) {
@@ -50,7 +61,7 @@ public class AddFriendMessage extends BmobIMExtraMessage{
 
     @Override
     public String getMsgType() {
-        return "add";
+        return ADD;
     }
 
     @Override

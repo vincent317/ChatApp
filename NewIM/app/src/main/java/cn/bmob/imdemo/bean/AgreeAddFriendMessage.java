@@ -15,7 +15,9 @@ import cn.bmob.newim.bean.BmobIMMessage;
  * @date 2016-03-04-10:41
  * 接收到对方发送的同意添加自己为好友的请求时，需要做两个事情：1、在本地数据库中新建一个会话，因此需要设置isTransient为false,2、添加对方到自己的好友表中
  */
+//TODO 好友管理：9.6、自定义同意添加好友的消息类型
 public class AgreeAddFriendMessage extends BmobIMExtraMessage{
+    public static final String AGREE = "agree";
 
     //以下均是从extra里面抽离出来的字段，方便获取
     private String uid;//最初的发送方

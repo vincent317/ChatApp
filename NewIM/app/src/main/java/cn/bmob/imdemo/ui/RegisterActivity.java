@@ -17,7 +17,9 @@ import cn.bmob.imdemo.model.UserModel;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.LogInListener;
 
-/**注册界面
+/**
+ * 注册界面
+ *
  * @author :smile
  * @project:RegisterActivity
  * @date :2016-01-15-18:23
@@ -46,19 +48,24 @@ public class RegisterActivity extends ParentWithNaviActivity {
         initNaviView();
     }
 
+    /**
+     * 注册
+     *
+     * @param view
+     */
     @OnClick(R.id.btn_register)
-    public void onRegisterClick(View view){
-        UserModel.getInstance().register(et_username.getText().toString(), et_password.getText().toString(),et_password_again.getText().toString(),new LogInListener() {
+    public void onRegisterClick(View view) {
+        UserModel.getInstance().register(et_username.getText().toString(), et_password.getText().toString(), et_password_again.getText().toString(), new LogInListener() {
             @Override
             public void done(Object o, BmobException e) {
-                if(e==null){
+                if (e == null) {
                     EventBus.getDefault().post(new FinishEvent());
                     startActivity(MainActivity.class, null, true);
-                }else{
-                    if(e.getErrorCode()== BaseModel.CODE_NOT_EQUAL){
+                } else {
+                    if (e.getErrorCode() == BaseModel.CODE_NOT_EQUAL) {
                         et_password_again.setText("");
                     }
-                    toast(e.getMessage()+"("+e.getErrorCode()+")");
+                    toast(e.getMessage() + "(" + e.getErrorCode() + ")");
                 }
             }
         });

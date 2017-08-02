@@ -6,21 +6,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import org.greenrobot.eventbus.Subscribe;
-
 import butterknife.Bind;
 import butterknife.OnClick;
 import cn.bmob.imdemo.R;
 import cn.bmob.imdemo.base.BaseActivity;
-import cn.bmob.imdemo.bean.User;
-import cn.bmob.imdemo.event.FinishEvent;
 import cn.bmob.imdemo.model.UserModel;
-import cn.bmob.newim.BmobIM;
-import cn.bmob.newim.bean.BmobIMUserInfo;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.LogInListener;
 
-/**登陆界面
+/**
+ * 登陆界面
+ *
  * @author :smile
  * @project:LoginActivity
  * @date :2016-01-15-18:23
@@ -42,14 +38,21 @@ public class LoginActivity extends BaseActivity {
         setContentView(R.layout.activity_login);
     }
 
+
+    /**
+     * 登录
+     *
+     * @param view
+     */
     @OnClick(R.id.btn_login)
-    public void onLoginClick(View view){
+    public void onLoginClick(View view) {
         UserModel.getInstance().login(et_username.getText().toString(), et_password.getText().toString(), new LogInListener() {
 
             @Override
             public void done(Object o, BmobException e) {
                 if (e == null) {
-                   startActivity(MainActivity.class, null, true);
+                    //登录成功
+                    startActivity(MainActivity.class, null, true);
                 } else {
                     toast(e.getMessage() + "(" + e.getErrorCode() + ")");
                 }
@@ -58,13 +61,13 @@ public class LoginActivity extends BaseActivity {
     }
 
 
+    /**
+     * 去注册
+     *
+     * @param view
+     */
     @OnClick(R.id.tv_register)
-    public void onRegisterClick(View view){
+    public void onRegisterClick(View view) {
         startActivity(RegisterActivity.class, null, false);
-    }
-
-    @Subscribe
-    public void onEventMainThread(FinishEvent event){
-        finish();
     }
 }

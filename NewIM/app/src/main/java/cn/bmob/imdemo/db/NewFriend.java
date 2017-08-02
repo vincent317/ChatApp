@@ -7,6 +7,7 @@ package cn.bmob.imdemo.db;
 /**
  * Entity mapped to table "newfriend".
  */
+//TODO 好友管理：9.4、本地数据库存储添加好友的请求
 public class NewFriend implements java.io.Serializable {
 
     private Long id;

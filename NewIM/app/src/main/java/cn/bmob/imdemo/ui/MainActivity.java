@@ -5,8 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.orhanobut.logger.Logger;
 
@@ -30,7 +30,6 @@ import cn.bmob.newim.event.MessageEvent;
 import cn.bmob.newim.event.OfflineMessageEvent;
 import cn.bmob.newim.listener.ConnectListener;
 import cn.bmob.newim.listener.ConnectStatusChangeListener;
-import cn.bmob.newim.listener.ObseverListener;
 import cn.bmob.newim.notification.BmobNotificationManager;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
@@ -40,23 +39,21 @@ import cn.bmob.v3.exception.BmobException;
  * @project:MainActivity
  * @date :2016-01-15-18:23
  */
-public class MainActivity extends BaseActivity implements ObseverListener {
+public class MainActivity extends BaseActivity {
 
     @Bind(R.id.btn_conversation)
-    Button btn_conversation;
+    TextView btn_conversation;
     @Bind(R.id.btn_set)
-    Button btn_set;
-
+    TextView btn_set;
     @Bind(R.id.btn_contact)
-    Button btn_contact;
+    TextView btn_contact;
 
     @Bind(R.id.iv_conversation_tips)
     ImageView iv_conversation_tips;
-
     @Bind(R.id.iv_contact_tips)
     ImageView iv_contact_tips;
 
-    private Button[] mTabs;
+    private TextView[] mTabs;
     private ConversationFragment conversationFragment;
     private SetFragment setFragment;
     ContactFragment contactFragment;
@@ -68,52 +65,44 @@ public class MainActivity extends BaseActivity implements ObseverListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //connect server
         final User user = BmobUser.getCurrentUser(User.class);
-        /**
-         * FIXME 连接前先判断uid收为空
-         */
+        //TODO 连接：3.1、登录成功、注册成功或处于登录状态重新打开应用后执行连接IM服务器的操作
         if (!TextUtils.isEmpty(user.getObjectId())) {
             BmobIM.connect(user.getObjectId(), new ConnectListener() {
                 @Override
                 public void done(String uid, BmobException e) {
                     if (e == null) {
-                        Logger.i("connect success");
-                        //服务器连接成功就发送一个更新事件，同步更新会话及主页的小红点
+                        //TODO 连接成功后再进行修改本地用户信息的操作，并查询本地用户信息
                         EventBus.getDefault().post(new RefreshEvent());
-                        /**
-                         * FIXME 连接成功后再进行修改本地用户信息的操作，并查询本地用户信息
-                         */
+                        //服务器连接成功就发送一个更新事件，同步更新会话及主页的小红点
+                        //TODO 会话：3.6、更新用户资料，用于在会话页面、聊天页面以及个人信息页面显示
                         BmobIM.getInstance().
                                 updateUserInfo(new BmobIMUserInfo(user.getObjectId(),
                                         user.getUsername(), user.getAvatar()));
-                        BmobIMUserInfo bmobIMUserInfo = BmobIM.getInstance().
-                                getUserInfo(BmobUser.getCurrentUser().getObjectId());
-                        Logger.i(bmobIMUserInfo.getUserId() + "\n" + bmobIMUserInfo.getName());
+
                     } else {
-                        Logger.e(e);
+                        toast(e.getMessage());
                     }
                 }
             });
-            //监听连接状态，也可通过BmobIM.getInstance().getCurrentStatus()来获取当前的长连接状态
+            //TODO 连接：3.3、监听连接状态，可通过BmobIM.getInstance().getCurrentStatus()来获取当前的长连接状态
             BmobIM.getInstance().setOnConnectStatusChangeListener(new ConnectStatusChangeListener() {
                 @Override
                 public void onChange(ConnectionStatus status) {
                     toast(status.getMsg());
+                    Logger.i(BmobIM.getInstance().getCurrentStatus().getMsg());
                 }
             });
         }
         //解决leancanary提示InputMethodManager内存泄露的问题
         IMMLeaks.fixFocusedViewLeak(getApplication());
-
-
     }
 
 
     @Override
     protected void initView() {
         super.initView();
-        mTabs = new Button[3];
+        mTabs = new TextView[3];
         mTabs[0] = btn_conversation;
         mTabs[1] = btn_contact;
         mTabs[2] = btn_set;
@@ -166,7 +155,7 @@ public class MainActivity extends BaseActivity implements ObseverListener {
     @Override
     protected void onResume() {
         super.onResume();
-        //显示小红点
+        //每次进来应用都检查会话和好友请求的情况
         checkRedPoint();
         //进入应用后，通知栏应取消
         BmobNotificationManager.getInstance(this).cancelNotification();
@@ -184,6 +173,7 @@ public class MainActivity extends BaseActivity implements ObseverListener {
      *
      * @param event
      */
+    //TODO 消息接收：8.3、通知有在线消息接收
     @Subscribe
     public void onEventMainThread(MessageEvent event) {
         checkRedPoint();
@@ -194,6 +184,7 @@ public class MainActivity extends BaseActivity implements ObseverListener {
      *
      * @param event
      */
+    //TODO 消息接收：8.4、通知有离线消息接收
     @Subscribe
     public void onEventMainThread(OfflineMessageEvent event) {
         checkRedPoint();
@@ -204,20 +195,24 @@ public class MainActivity extends BaseActivity implements ObseverListener {
      *
      * @param event
      */
+    //TODO 消息接收：8.5、通知有自定义消息接收
     @Subscribe
     public void onEventMainThread(RefreshEvent event) {
-        log("---主页接收到自定义消息---");
         checkRedPoint();
     }
 
+    /**
+     *
+     */
     private void checkRedPoint() {
+        //TODO 会话：4.4、获取全部会话的未读消息数量
         int count = (int) BmobIM.getInstance().getAllUnReadCount();
         if (count > 0) {
             iv_conversation_tips.setVisibility(View.VISIBLE);
         } else {
             iv_conversation_tips.setVisibility(View.GONE);
         }
-        //是否有好友添加的请求
+        //TODO 好友管理：是否有好友添加的请求
         if (NewFriendManager.getInstance(this).hasNewFriendInvitation()) {
             iv_contact_tips.setVisibility(View.VISIBLE);
         } else {

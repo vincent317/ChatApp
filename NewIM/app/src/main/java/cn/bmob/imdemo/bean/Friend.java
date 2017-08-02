@@ -7,12 +7,12 @@ import cn.bmob.v3.BmobObject;
  * @project Friend
  * @date 2016-04-26
  */
+//TODO 好友管理：9.1、创建好友表
 public class Friend extends BmobObject{
 
     private User user;
     private User friendUser;
 
-    //拼音
     private transient String pinyin;
 
     public String getPinyin() {

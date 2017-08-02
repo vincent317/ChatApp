@@ -144,10 +144,10 @@ public class ContactFragment extends ParentWithNaviFragment {
                     Friend friend = adapter.getItem(position);
                     User user = friend.getFriendUser();
                     BmobIMUserInfo info = new BmobIMUserInfo(user.getObjectId(), user.getUsername(), user.getAvatar());
-                    //启动一个会话，实际上就是在本地数据库的会话列表中先创建（如果没有）与该用户的会话信息，且将用户信息存储到本地的用户表中
-                    BmobIMConversation c = BmobIM.getInstance().startPrivateConversation(info, null);
+                    //TODO 会话：4.1、创建一个常态会话入口，好友聊天
+                    BmobIMConversation conversationEntrance = BmobIM.getInstance().startPrivateConversation(info, null);
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("c", c);
+                    bundle.putSerializable("c", conversationEntrance);
                     startActivity(ChatActivity.class, bundle);
                 }
             }
@@ -158,6 +158,7 @@ public class ContactFragment extends ParentWithNaviFragment {
                 if (position == 0) {
                     return true;
                 }
+                //TODO 【好友管理】删除指定好友
                 UserModel.getInstance().deleteFriend(adapter.getItem(position),
                         new UpdateListener() {
                             @Override
@@ -211,33 +212,33 @@ public class ContactFragment extends ParentWithNaviFragment {
      * 查询本地会话
      */
     public void query() {
+        //TODO 【好友管理】获取好友列表
         UserModel.getInstance().queryFriends(
 
                 new FindListener<Friend>() {
                     @Override
                     public void done(List<Friend> list, BmobException e) {
-
                         if (e == null) {
-                            List<Friend> friends = new ArrayList<Friend>();
+                            List<Friend> friends = new ArrayList<>();
                             friends.clear();
                             //添加首字母
                             for (int i = 0; i < list.size(); i++) {
                                 Friend friend = list.get(i);
                                 String username = friend.getFriendUser().getUsername();
-                                String pinyin = Pinyin.toPinyin(username.charAt(0));
-//                    Logger.i(pinyin);
-                                friend.setPinyin(pinyin.substring(0, 1).toUpperCase());
-                                friends.add(friend);
+                                if (username != null) {
+                                    String pinyin = Pinyin.toPinyin(username.charAt(0));
+                                    friend.setPinyin(pinyin.substring(0, 1).toUpperCase());
+                                    friends.add(friend);
+                                }
                             }
                             adapter.bindDatas(friends);
                             adapter.notifyDataSetChanged();
                             sw_refresh.setRefreshing(false);
                         } else {
-
                             adapter.bindDatas(null);
                             adapter.notifyDataSetChanged();
                             sw_refresh.setRefreshing(false);
-                            Logger.i(e.getMessage() + "--" + e.getErrorCode());
+                            Logger.e(e);
                         }
                     }
                 }

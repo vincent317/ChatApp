@@ -7,7 +7,7 @@ import java.io.Serializable;
 import cn.bmob.newim.bean.BmobIMConversationType;
 
 /**
- * 对BmobIMConveration的抽象封装,方便开发者扩展会话类型
+ * 对BmobIMConversation的抽象封装,方便开发者扩展会话类型
  * @author smile
  * @date 2016-05-25
  */

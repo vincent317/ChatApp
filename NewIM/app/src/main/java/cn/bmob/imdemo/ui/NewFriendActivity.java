@@ -11,12 +11,10 @@ import java.util.List;
 
 import butterknife.Bind;
 import cn.bmob.imdemo.R;
-import cn.bmob.imdemo.adapter.ConversationAdapter;
 import cn.bmob.imdemo.adapter.NewFriendAdapter;
 import cn.bmob.imdemo.adapter.OnRecyclerViewListener;
 import cn.bmob.imdemo.adapter.base.IMutlipleItem;
 import cn.bmob.imdemo.base.ParentWithNaviActivity;
-import cn.bmob.imdemo.bean.Conversation;
 import cn.bmob.imdemo.db.NewFriend;
 import cn.bmob.imdemo.db.NewFriendManager;
 
@@ -70,12 +68,12 @@ public class NewFriendActivity extends ParentWithNaviActivity {
         IMutlipleItem<NewFriend> mutlipleItem = new IMutlipleItem<NewFriend>() {
 
             @Override
-            public int getItemViewType(int postion, NewFriend c) {
+            public int getItemViewType(int position, NewFriend c) {
                 return 0;
             }
 
             @Override
-            public int getItemLayoutId(int viewtype) {
+           public int getItemLayoutId(int viewtype) {
                 return R.layout.item_new_friend;
             }
 
