@@ -50,6 +50,7 @@ import cn.bmob.newim.bean.BmobIMTextMessage;
 import cn.bmob.newim.bean.BmobIMVideoMessage;
 import cn.bmob.newim.core.BmobIMClient;
 import cn.bmob.newim.core.BmobRecordManager;
+import cn.bmob.newim.core.ConnectionStatus;
 import cn.bmob.newim.event.MessageEvent;
 import cn.bmob.newim.listener.MessageListHandler;
 import cn.bmob.newim.listener.MessageSendListener;
@@ -413,21 +414,37 @@ public class ChatActivity extends ParentWithNaviActivity implements MessageListH
 
     @OnClick(R.id.btn_chat_send)
     public void onSendClick(View view) {
+        if (BmobIM.getInstance().getCurrentStatus().getCode() != ConnectionStatus.CONNECTED.getCode()) {
+            toast("尚未连接IM服务器");
+            return;
+        }
         sendMessage();
     }
 
     @OnClick(R.id.tv_picture)
     public void onPictureClick(View view) {
+        if (BmobIM.getInstance().getCurrentStatus().getCode() != ConnectionStatus.CONNECTED.getCode()) {
+            toast("尚未连接IM服务器");
+            return;
+        }
         sendLocalImageMessage();
     }
 
     @OnClick(R.id.tv_camera)
     public void onCameraClick(View view) {
+        if (BmobIM.getInstance().getCurrentStatus().getCode() != ConnectionStatus.CONNECTED.getCode()) {
+            toast("尚未连接IM服务器");
+            return;
+        }
         sendRemoteImageMessage();
     }
 
     @OnClick(R.id.tv_location)
     public void onLocationClick(View view) {
+        if (BmobIM.getInstance().getCurrentStatus().getCode() != ConnectionStatus.CONNECTED.getCode()) {
+            toast("尚未连接IM服务器");
+            return;
+        }
         sendLocationMessage();
     }
 
@@ -621,6 +638,7 @@ public class ChatActivity extends ParentWithNaviActivity implements MessageListH
         public void done(BmobIMMessage msg, BmobException e) {
             adapter.notifyDataSetChanged();
             edit_msg.setText("");
+            //java.lang.NullPointerException: Attempt to invoke virtual method 'void android.widget.TextView.setText(java.lang.CharSequence)' on a null object reference
             scrollToBottom();
             if (e != null) {
                 toast(e.getMessage());

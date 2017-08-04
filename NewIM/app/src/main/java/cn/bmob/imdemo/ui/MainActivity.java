@@ -65,21 +65,22 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         final User user = BmobUser.getCurrentUser(User.class);
         //TODO 连接：3.1、登录成功、注册成功或处于登录状态重新打开应用后执行连接IM服务器的操作
-        if (!TextUtils.isEmpty(user.getObjectId())) {
+        //判断用户是否登录，并且连接状态不是已连接，则进行连接操作
+        if (!TextUtils.isEmpty(user.getObjectId()) &&
+                BmobIM.getInstance().getCurrentStatus().getCode() != ConnectionStatus.CONNECTED.getCode()) {
             BmobIM.connect(user.getObjectId(), new ConnectListener() {
                 @Override
                 public void done(String uid, BmobException e) {
                     if (e == null) {
-                        //TODO 连接成功后再进行修改本地用户信息的操作，并查询本地用户信息
-                        EventBus.getDefault().post(new RefreshEvent());
                         //服务器连接成功就发送一个更新事件，同步更新会话及主页的小红点
-                        //TODO 会话：3.6、更新用户资料，用于在会话页面、聊天页面以及个人信息页面显示
+                        EventBus.getDefault().post(new RefreshEvent());
+                        //TODO 会话：2.7、更新用户资料，用于在会话页面、聊天页面以及个人信息页面显示
                         BmobIM.getInstance().
                                 updateUserInfo(new BmobIMUserInfo(user.getObjectId(),
                                         user.getUsername(), user.getAvatar()));
-
                     } else {
                         toast(e.getMessage());
                     }

@@ -158,7 +158,6 @@ public class ContactFragment extends ParentWithNaviFragment {
                 if (position == 0) {
                     return true;
                 }
-                //TODO 【好友管理】删除指定好友
                 UserModel.getInstance().deleteFriend(adapter.getItem(position),
                         new UpdateListener() {
                             @Override
@@ -212,7 +211,6 @@ public class ContactFragment extends ParentWithNaviFragment {
      * 查询本地会话
      */
     public void query() {
-        //TODO 【好友管理】获取好友列表
         UserModel.getInstance().queryFriends(
 
                 new FindListener<Friend>() {

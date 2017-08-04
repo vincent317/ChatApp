@@ -22,6 +22,7 @@ import cn.bmob.newim.bean.BmobIMConversation;
 import cn.bmob.newim.bean.BmobIMMessage;
 import cn.bmob.newim.bean.BmobIMUserInfo;
 import cn.bmob.newim.core.BmobIMClient;
+import cn.bmob.newim.core.ConnectionStatus;
 import cn.bmob.newim.listener.MessageSendListener;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
@@ -94,6 +95,10 @@ public class UserInfoActivity extends ParentWithNaviActivity {
      */
     //TODO 好友管理：9.7、发送添加好友请求
     private void sendAddFriendMessage() {
+        if (BmobIM.getInstance().getCurrentStatus().getCode() != ConnectionStatus.CONNECTED.getCode()) {
+            toast("尚未连接IM服务器");
+            return;
+        }
         //TODO 会话：4.1、创建一个暂态会话入口，发送好友请求
         BmobIMConversation conversationEntrance = BmobIM.getInstance().startPrivateConversation(info, true, null);
         //TODO 消息：5.1、根据会话入口获取消息管理，发送好友请求
@@ -101,7 +106,6 @@ public class UserInfoActivity extends ParentWithNaviActivity {
         AddFriendMessage msg = new AddFriendMessage();
         User currentUser = BmobUser.getCurrentUser(User.class);
         msg.setContent("很高兴认识你，可以加个好友吗?");//给对方的一个留言信息
-        //TODO 这里只是举个例子，其实可以不需要传发送者的信息过去
         Map<String, Object> map = new HashMap<>();
         map.put("name", currentUser.getUsername());//发送者姓名
         map.put("avatar", currentUser.getAvatar());//发送者的头像
@@ -123,6 +127,10 @@ public class UserInfoActivity extends ParentWithNaviActivity {
      * 与陌生人聊天
      */
     private void chat() {
+        if (BmobIM.getInstance().getCurrentStatus().getCode() != ConnectionStatus.CONNECTED.getCode()) {
+            toast("尚未连接IM服务器");
+            return;
+        }
         //TODO 会话：4.1、创建一个常态会话入口，陌生人聊天
         BmobIMConversation conversationEntrance = BmobIM.getInstance().startPrivateConversation(info, null);
         Bundle bundle = new Bundle();

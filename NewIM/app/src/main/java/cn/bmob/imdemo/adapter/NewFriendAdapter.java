@@ -24,6 +24,7 @@ import cn.bmob.newim.bean.BmobIMConversation;
 import cn.bmob.newim.bean.BmobIMMessage;
 import cn.bmob.newim.bean.BmobIMUserInfo;
 import cn.bmob.newim.core.BmobIMClient;
+import cn.bmob.newim.core.ConnectionStatus;
 import cn.bmob.newim.listener.MessageSendListener;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
@@ -53,7 +54,6 @@ public class NewFriendAdapter extends BaseRecyclerAdapter<NewFriend> {
             holder.setOnClickListener(R.id.btn_aggree, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //TODO 1、添加好友
                     agreeAdd(add, new SaveListener<Object>() {
                         @Override
                         public void done(Object o, BmobException e) {
@@ -89,7 +89,6 @@ public class NewFriendAdapter extends BaseRecyclerAdapter<NewFriend> {
                     @Override
                     public void done(String s, BmobException e) {
                         if (e == null) {
-                            //TODO 2、发送同意添加好友的消息
                             sendAgreeAddFriendMessage(add, listener);
                         } else {
                             Logger.e(e.getMessage());
@@ -104,6 +103,10 @@ public class NewFriendAdapter extends BaseRecyclerAdapter<NewFriend> {
      */
     //TODO 好友管理：9.8、发送同意添加好友
     private void sendAgreeAddFriendMessage(final NewFriend add, final SaveListener<Object> listener) {
+        if (BmobIM.getInstance().getCurrentStatus().getCode() != ConnectionStatus.CONNECTED.getCode()) {
+            toast("尚未连接IM服务器");
+            return;
+        }
         BmobIMUserInfo info = new BmobIMUserInfo(add.getUid(), add.getName(), add.getAvatar());
         //TODO 会话：4.1、创建一个暂态会话入口，发送同意好友请求
         BmobIMConversation conversationEntrance = BmobIM.getInstance().startPrivateConversation(info, true, null);
@@ -122,7 +125,6 @@ public class NewFriendAdapter extends BaseRecyclerAdapter<NewFriend> {
             @Override
             public void done(BmobIMMessage msg, BmobException e) {
                 if (e == null) {//发送成功
-                    //TODO 3、修改本地的好友请求记录
                     NewFriendManager.getInstance(context).updateNewFriend(add, Config.STATUS_VERIFIED);
                     listener.done(msg, e);
                 } else {//发送失败
