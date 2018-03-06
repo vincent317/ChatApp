@@ -11,12 +11,12 @@ android {
         applicationId "cn.bmob.imdemo"
         minSdkVersion 14
         targetSdkVersion 22
-        versionCode 9
-        versionName "2.0.9"
+        versionCode 10
+        versionName "2.1.0"
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             //自动删除 unaligned .apks
             applicationVariants.all { variant ->
@@ -61,7 +61,7 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.0.0'
 
     //TODO 集成：1.2、配置IM SDK（bmob-im）版本和Data SDK（bmob-sdk）版本：特定版本的bmob-im依赖特定版本的bmob-sdk
-    compile 'cn.bmob.android:bmob-im:2.0.9@aar'
+    compile 'cn.bmob.android:bmob-im:2.1.0@aar'
     compile 'cn.bmob.android:bmob-sdk:3.5.6'
 
 

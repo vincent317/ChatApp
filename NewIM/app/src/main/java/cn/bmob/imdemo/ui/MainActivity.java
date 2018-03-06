@@ -76,11 +76,11 @@ public class MainActivity extends BaseActivity {
                 public void done(String uid, BmobException e) {
                     if (e == null) {
                         //服务器连接成功就发送一个更新事件，同步更新会话及主页的小红点
-                        EventBus.getDefault().post(new RefreshEvent());
                         //TODO 会话：2.7、更新用户资料，用于在会话页面、聊天页面以及个人信息页面显示
                         BmobIM.getInstance().
                                 updateUserInfo(new BmobIMUserInfo(user.getObjectId(),
                                         user.getUsername(), user.getAvatar()));
+                        EventBus.getDefault().post(new RefreshEvent());
                     } else {
                         toast(e.getMessage());
                     }
@@ -134,6 +134,8 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.btn_set:
                 index = 2;
+                break;
+            default:
                 break;
         }
         onTabIndex(index);

@@ -499,6 +499,7 @@ public class ChatActivity extends ParentWithNaviActivity implements MessageListH
         Map<String, Object> map = new HashMap<>();
         map.put("level", "1");
         msg.setExtraMap(map);
+        msg.setExtra("OK");
         mConversationManager.sendMessage(msg, listener);
     }
 

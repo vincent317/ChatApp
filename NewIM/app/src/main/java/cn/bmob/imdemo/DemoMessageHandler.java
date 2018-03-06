@@ -83,6 +83,9 @@ public class DemoMessageHandler extends BmobIMMessageHandler {
             @Override
             public void done(BmobException e) {
                 BmobIMMessage msg = event.getMessage();
+                Logger.i(msg.toString());
+                Logger.i(msg.getExtra());
+                Logger.i(msg.getExtra());
                 if (BmobIMMessageType.getMessageTypeValue(msg.getMsgType()) == 0) {
                     //自定义消息类型：0
                     processCustomMessage(msg, event.getFromUserInfo());
@@ -127,6 +130,7 @@ public class DemoMessageHandler extends BmobIMMessageHandler {
      *
      * @param msg
      */
+    //TODO 好友管理：9.9、接收并处理好友相关的请求
     private void processCustomMessage(BmobIMMessage msg, BmobIMUserInfo info) {
         //消息类型
         String type = msg.getMsgType();

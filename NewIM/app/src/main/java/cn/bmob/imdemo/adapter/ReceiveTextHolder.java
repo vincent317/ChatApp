@@ -52,6 +52,10 @@ public class ReceiveTextHolder extends BaseViewHolder {
     iv_avatar.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
+        if (info==null){
+          toast("由message获得的用户信息为空");
+          return;
+        }
         toast("点击" + info.getName() + "的头像");
       }
     });

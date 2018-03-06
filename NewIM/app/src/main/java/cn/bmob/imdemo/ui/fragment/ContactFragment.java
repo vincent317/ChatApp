@@ -158,7 +158,10 @@ public class ContactFragment extends ParentWithNaviFragment {
                 if (position == 0) {
                     return true;
                 }
-                UserModel.getInstance().deleteFriend(adapter.getItem(position),
+
+                Friend friend = adapter.getItem(position);
+
+                UserModel.getInstance().deleteFriend(friend,
                         new UpdateListener() {
                             @Override
                             public void done(BmobException e) {
@@ -170,6 +173,7 @@ public class ContactFragment extends ParentWithNaviFragment {
                                 }
                             }
                         });
+
 
                 return true;
             }
