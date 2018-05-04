@@ -7,7 +7,7 @@ import android.widget.EditText;
 
 import org.greenrobot.eventbus.EventBus;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 import cn.bmob.imdemo.R;
 import cn.bmob.imdemo.base.ParentWithNaviActivity;
@@ -26,14 +26,14 @@ import cn.bmob.v3.listener.LogInListener;
  */
 public class RegisterActivity extends ParentWithNaviActivity {
 
-    @Bind(R.id.et_username)
+    @BindView(R.id.et_username)
     EditText et_username;
-    @Bind(R.id.et_password)
+    @BindView(R.id.et_password)
     EditText et_password;
-    @Bind(R.id.btn_register)
+    @BindView(R.id.btn_register)
     Button btn_register;
 
-    @Bind(R.id.et_password_again)
+    @BindView(R.id.et_password_again)
     EditText et_password_again;
 
     @Override

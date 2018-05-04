@@ -13,7 +13,7 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import java.text.SimpleDateFormat;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import cn.bmob.imdemo.R;
 import cn.bmob.imdemo.adapter.base.BaseViewHolder;
 import cn.bmob.imdemo.base.ImageLoaderFactory;
@@ -26,15 +26,15 @@ import cn.bmob.newim.bean.BmobIMUserInfo;
  */
 public class ReceiveImageHolder extends BaseViewHolder {
 
-  @Bind(R.id.iv_avatar)
+  @BindView(R.id.iv_avatar)
   protected ImageView iv_avatar;
 
-  @Bind(R.id.tv_time)
+  @BindView(R.id.tv_time)
   protected TextView tv_time;
 
-  @Bind(R.id.iv_picture)
+  @BindView(R.id.iv_picture)
   protected ImageView iv_picture;
-  @Bind(R.id.progress_load)
+  @BindView(R.id.progress_load)
   protected ProgressBar progress_load;
 
   public ReceiveImageHolder(Context context, ViewGroup root,OnRecyclerViewListener onRecyclerViewListener) {

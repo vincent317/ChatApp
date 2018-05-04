@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import cn.bmob.imdemo.R;
 import cn.bmob.imdemo.adapter.base.BaseViewHolder;
 import cn.bmob.imdemo.base.ImageLoaderFactory;
@@ -21,13 +21,13 @@ import cn.bmob.newim.bean.BmobIMUserInfo;
  */
 public class ReceiveLocationHolder extends BaseViewHolder {
 
-  @Bind(R.id.iv_avatar)
+  @BindView(R.id.iv_avatar)
   protected ImageView iv_avatar;
 
-  @Bind(R.id.tv_time)
+  @BindView(R.id.tv_time)
   protected TextView tv_time;
 
-  @Bind(R.id.tv_location)
+  @BindView(R.id.tv_location)
   protected TextView tv_location;
 
   public ReceiveLocationHolder(Context context, ViewGroup root,OnRecyclerViewListener onRecyclerViewListener) {

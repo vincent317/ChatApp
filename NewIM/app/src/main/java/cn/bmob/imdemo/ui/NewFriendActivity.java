@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import cn.bmob.imdemo.R;
 import cn.bmob.imdemo.adapter.NewFriendAdapter;
 import cn.bmob.imdemo.adapter.OnRecyclerViewListener;
@@ -25,11 +25,11 @@ import cn.bmob.imdemo.db.NewFriendManager;
  */
 public class NewFriendActivity extends ParentWithNaviActivity {
 
-    @Bind(R.id.ll_root)
+    @BindView(R.id.ll_root)
     LinearLayout ll_root;
-    @Bind(R.id.rc_view)
+    @BindView(R.id.rc_view)
     RecyclerView rc_view;
-    @Bind(R.id.sw_refresh)
+    @BindView(R.id.sw_refresh)
     SwipeRefreshLayout sw_refresh;
     NewFriendAdapter adapter;
     LinearLayoutManager layoutManager;

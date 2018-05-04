@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import cn.bmob.imdemo.R;
 import cn.bmob.imdemo.adapter.base.BaseViewHolder;
 import cn.bmob.imdemo.base.ImageLoaderFactory;
@@ -25,21 +25,21 @@ import cn.bmob.v3.exception.BmobException;
  */
 public class SendVideoHolder extends BaseViewHolder implements View.OnClickListener,View.OnLongClickListener {
 
-  @Bind(R.id.iv_avatar)
+  @BindView(R.id.iv_avatar)
   protected ImageView iv_avatar;
 
-  @Bind(R.id.iv_fail_resend)
+  @BindView(R.id.iv_fail_resend)
   protected ImageView iv_fail_resend;
 
-  @Bind(R.id.tv_time)
+  @BindView(R.id.tv_time)
   protected TextView tv_time;
 
-  @Bind(R.id.tv_message)
+  @BindView(R.id.tv_message)
   protected TextView tv_message;
-  @Bind(R.id.tv_send_status)
+  @BindView(R.id.tv_send_status)
   protected TextView tv_send_status;
 
-  @Bind(R.id.progress_load)
+  @BindView(R.id.progress_load)
   protected ProgressBar progress_load;
 
   BmobIMConversation c;

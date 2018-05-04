@@ -18,7 +18,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.bmob.imdemo.R;
 import cn.bmob.imdemo.adapter.ContactAdapter;
@@ -49,9 +49,9 @@ import cn.bmob.v3.listener.UpdateListener;
  */
 public class ContactFragment extends ParentWithNaviFragment {
 
-    @Bind(R.id.rc_view)
+    @BindView(R.id.rc_view)
     RecyclerView rc_view;
-    @Bind(R.id.sw_refresh)
+    @BindView(R.id.sw_refresh)
     SwipeRefreshLayout sw_refresh;
     ContactAdapter adapter;
     LinearLayoutManager layoutManager;

@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import cn.bmob.imdemo.R;
 import cn.bmob.imdemo.adapter.base.BaseViewHolder;
 import cn.bmob.imdemo.base.ImageLoaderFactory;
@@ -17,11 +17,11 @@ import cn.bmob.imdemo.ui.UserInfoActivity;
 
 public class SearchUserHolder extends BaseViewHolder {
 
-  @Bind(R.id.avatar)
+  @BindView(R.id.avatar)
   public ImageView avatar;
-  @Bind(R.id.name)
+  @BindView(R.id.name)
   public TextView name;
-  @Bind(R.id.btn_add)
+  @BindView(R.id.btn_add)
   public Button btn_add;
 
   public SearchUserHolder(Context context, ViewGroup root,OnRecyclerViewListener onRecyclerViewListener) {

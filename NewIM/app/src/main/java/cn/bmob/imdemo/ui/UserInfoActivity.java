@@ -9,7 +9,7 @@ import android.widget.TextView;
 import java.util.HashMap;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.bmob.imdemo.R;
@@ -32,13 +32,13 @@ import cn.bmob.v3.exception.BmobException;
  */
 public class UserInfoActivity extends ParentWithNaviActivity {
 
-    @Bind(R.id.iv_avator)
+    @BindView(R.id.iv_avator)
     ImageView iv_avator;
-    @Bind(R.id.tv_name)
+    @BindView(R.id.tv_name)
     TextView tv_name;
-    @Bind(R.id.btn_add_friend)
+    @BindView(R.id.btn_add_friend)
     Button btn_add_friend;
-    @Bind(R.id.btn_chat)
+    @BindView(R.id.btn_chat)
     Button btn_chat;
 
 

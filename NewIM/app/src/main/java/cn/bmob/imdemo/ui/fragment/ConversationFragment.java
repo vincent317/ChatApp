@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.bmob.imdemo.R;
 import cn.bmob.imdemo.adapter.ConversationAdapter;
@@ -43,9 +43,9 @@ import cn.bmob.newim.event.OfflineMessageEvent;
  */
 public class ConversationFragment extends ParentWithNaviFragment {
 
-    @Bind(R.id.rc_view)
+    @BindView(R.id.rc_view)
     RecyclerView rc_view;
-    @Bind(R.id.sw_refresh)
+    @BindView(R.id.sw_refresh)
     SwipeRefreshLayout sw_refresh;
     ConversationAdapter adapter;
     LinearLayoutManager layoutManager;

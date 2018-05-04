@@ -13,7 +13,7 @@ import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 import cn.bmob.imdemo.R;
 import cn.bmob.imdemo.adapter.OnRecyclerViewListener;
@@ -34,13 +34,13 @@ import cn.bmob.v3.listener.FindListener;
  */
 public class SearchUserActivity extends ParentWithNaviActivity {
 
-    @Bind(R.id.et_find_name)
+    @BindView(R.id.et_find_name)
     EditText et_find_name;
-    @Bind(R.id.sw_refresh)
+    @BindView(R.id.sw_refresh)
     SwipeRefreshLayout sw_refresh;
-    @Bind(R.id.btn_search)
+    @BindView(R.id.btn_search)
     Button btn_search;
-    @Bind(R.id.rc_view)
+    @BindView(R.id.rc_view)
     RecyclerView rc_view;
     LinearLayoutManager layoutManager;
     SearchUserAdapter adapter;

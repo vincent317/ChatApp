@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import cn.bmob.imdemo.R;
 import cn.bmob.imdemo.adapter.base.BaseViewHolder;
 import cn.bmob.newim.bean.BmobIMMessage;
@@ -17,10 +17,10 @@ import cn.bmob.newim.bean.BmobIMMessage;
  */
 public class AgreeHolder extends BaseViewHolder implements View.OnClickListener,View.OnLongClickListener {
 
-  @Bind(R.id.tv_time)
+  @BindView(R.id.tv_time)
   protected TextView tv_time;
 
-  @Bind(R.id.tv_message)
+  @BindView(R.id.tv_message)
   protected TextView tv_message;
 
   public AgreeHolder(Context context, ViewGroup root, OnRecyclerViewListener listener) {

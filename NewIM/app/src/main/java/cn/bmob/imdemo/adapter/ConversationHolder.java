@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import cn.bmob.imdemo.R;
 import cn.bmob.imdemo.util.TimeUtil;
 import cn.bmob.imdemo.util.ViewUtil;
@@ -19,15 +19,15 @@ import cn.bmob.newim.bean.BmobIMMessageType;
 
 public class ConversationHolder extends BaseViewHolder {
 
-  @Bind(R.id.iv_recent_avatar)
+  @BindView(R.id.iv_recent_avatar)
   public ImageView iv_recent_avatar;
-  @Bind(R.id.tv_recent_name)
+  @BindView(R.id.tv_recent_name)
   public TextView tv_recent_name;
-  @Bind(R.id.tv_recent_msg)
+  @BindView(R.id.tv_recent_msg)
   public TextView tv_recent_msg;
-  @Bind(R.id.tv_recent_time)
+  @BindView(R.id.tv_recent_time)
   public TextView tv_recent_time;
-  @Bind(R.id.tv_recent_unread)
+  @BindView(R.id.tv_recent_unread)
   public TextView tv_recent_unread;
 
   public ConversationHolder(Context context, ViewGroup root, OnRecyclerViewListener onRecyclerViewListener) {

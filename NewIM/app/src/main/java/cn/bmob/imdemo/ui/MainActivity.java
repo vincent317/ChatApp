@@ -13,7 +13,7 @@ import com.orhanobut.logger.Logger;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import cn.bmob.imdemo.R;
 import cn.bmob.imdemo.base.BaseActivity;
 import cn.bmob.imdemo.bean.User;
@@ -41,16 +41,16 @@ import cn.bmob.v3.exception.BmobException;
  */
 public class MainActivity extends BaseActivity {
 
-    @Bind(R.id.btn_conversation)
+    @BindView(R.id.btn_conversation)
     TextView btn_conversation;
-    @Bind(R.id.btn_set)
+    @BindView(R.id.btn_set)
     TextView btn_set;
-    @Bind(R.id.btn_contact)
+    @BindView(R.id.btn_contact)
     TextView btn_contact;
 
-    @Bind(R.id.iv_conversation_tips)
+    @BindView(R.id.iv_conversation_tips)
     ImageView iv_conversation_tips;
-    @Bind(R.id.iv_contact_tips)
+    @BindView(R.id.iv_contact_tips)
     ImageView iv_contact_tips;
 
     private TextView[] mTabs;

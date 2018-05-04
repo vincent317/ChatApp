@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion '25.0.0'
+    compileSdkVersion 25
+    buildToolsVersion '27.0.3'
 
     aaptOptions.cruncherEnabled = false
     aaptOptions.useNewCruncher = false
@@ -10,27 +10,27 @@ android {
     defaultConfig {
         applicationId "cn.bmob.imdemo"
         minSdkVersion 14
-        targetSdkVersion 22
+        targetSdkVersion 25
         versionCode 10
         versionName "2.1.0"
     }
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             //自动删除 unaligned .apks
-            applicationVariants.all { variant ->
-                variant.assemble.doLast {
-                    variant.outputs.each { output ->
-                        File unaligned = output.packageApplication.outputFile;
-                        File aligned = output.outputFile
-                        if (!unaligned.getName().equalsIgnoreCase(aligned.getName())) {
-                            println "deleting " + unaligned.getName()
-                            unaligned.delete()
-                        }
-                    }
-                }
-            }
+//            applicationVariants.all { variant ->
+//                variant.assemble.doLast {
+//                    variant.outputs.each { output ->
+//                        File unaligned = output.packageApplication.outputFile;
+//                        File aligned = output.outputFile
+//                        if (!unaligned.getName().equalsIgnoreCase(aligned.getName())) {
+//                            println "deleting " + unaligned.getName()
+//                            unaligned.delete()
+//                        }
+//                    }
+//                }
+//            }
         }
     }
 
@@ -50,22 +50,21 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile('com.android.support:appcompat-v7:22.2.0') {
-        exclude module: 'support-annotations'
-    }
-    compile 'com.android.support:recyclerview-v7:22.2.0'
-    compile 'com.jakewharton:butterknife:7.0.1'
-    compile 'com.orhanobut:logger:1.4'
-    compile 'org.greenrobot:eventbus:3.0.0'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:25.3.0'
+    implementation 'com.android.support:recyclerview-v7:25.3.0'
+    implementation 'com.orhanobut:logger:1.4'
+    implementation 'org.greenrobot:eventbus:3.0.0'
 
     //TODO 集成：1.2、配置IM SDK（bmob-im）版本和Data SDK（bmob-sdk）版本：特定版本的bmob-im依赖特定版本的bmob-sdk
-    compile 'cn.bmob.android:bmob-im:2.1.0@aar'
-    compile 'cn.bmob.android:bmob-sdk:3.5.6'
+    implementation 'cn.bmob.android:bmob-im:2.1.0@aar'
+    implementation 'cn.bmob.android:bmob-sdk:3.6.1'
 
 
     //汉字转拼音
-    compile 'com.github.promeg:tinypinyin:1.0.0'
+    implementation 'com.github.promeg:tinypinyin:1.0.0'
+
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
 }

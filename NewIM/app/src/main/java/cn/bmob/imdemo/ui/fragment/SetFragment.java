@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.bmob.imdemo.R;
@@ -29,10 +29,10 @@ import cn.bmob.v3.BmobUser;
  */
 public class SetFragment extends ParentWithNaviFragment {
 
-    @Bind(R.id.tv_set_name)
+    @BindView(R.id.tv_set_name)
     TextView tv_set_name;
 
-    @Bind(R.id.layout_info)
+    @BindView(R.id.layout_info)
     RelativeLayout layout_info;
 
     @Override

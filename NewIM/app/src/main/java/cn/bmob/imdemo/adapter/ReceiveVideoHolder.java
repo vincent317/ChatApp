@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 import cn.bmob.imdemo.R;
 import cn.bmob.imdemo.adapter.base.BaseViewHolder;
@@ -21,13 +21,13 @@ import cn.bmob.newim.bean.BmobIMUserInfo;
  */
 public class ReceiveVideoHolder extends BaseViewHolder {
 
-  @Bind(R.id.iv_avatar)
+  @BindView(R.id.iv_avatar)
   protected ImageView iv_avatar;
 
-  @Bind(R.id.tv_time)
+  @BindView(R.id.tv_time)
   protected TextView tv_time;
 
-  @Bind(R.id.tv_message)
+  @BindView(R.id.tv_message)
   protected TextView tv_message;
 
   public ReceiveVideoHolder(Context context, ViewGroup root, OnRecyclerViewListener onRecyclerViewListener) {

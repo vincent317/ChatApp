@@ -6,7 +6,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 import cn.bmob.imdemo.R;
 import cn.bmob.imdemo.base.BaseActivity;
@@ -23,13 +23,13 @@ import cn.bmob.v3.listener.LogInListener;
  */
 public class LoginActivity extends BaseActivity {
 
-    @Bind(R.id.et_username)
+    @BindView(R.id.et_username)
     EditText et_username;
-    @Bind(R.id.et_password)
+    @BindView(R.id.et_password)
     EditText et_password;
-    @Bind(R.id.btn_login)
+    @BindView(R.id.btn_login)
     Button btn_login;
-    @Bind(R.id.tv_register)
+    @BindView(R.id.tv_register)
     TextView tv_register;
 
     @Override

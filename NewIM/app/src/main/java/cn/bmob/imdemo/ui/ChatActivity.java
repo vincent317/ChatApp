@@ -32,7 +32,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 import cn.bmob.imdemo.R;
 import cn.bmob.imdemo.adapter.ChatAdapter;
@@ -68,44 +68,44 @@ import cn.bmob.v3.exception.BmobException;
  */
 public class ChatActivity extends ParentWithNaviActivity implements MessageListHandler {
 
-    @Bind(R.id.ll_chat)
+    @BindView(R.id.ll_chat)
     LinearLayout ll_chat;
 
-    @Bind(R.id.sw_refresh)
+    @BindView(R.id.sw_refresh)
     SwipeRefreshLayout sw_refresh;
 
-    @Bind(R.id.rc_view)
+    @BindView(R.id.rc_view)
     RecyclerView rc_view;
 
-    @Bind(R.id.edit_msg)
+    @BindView(R.id.edit_msg)
     EditText edit_msg;
 
-    @Bind(R.id.btn_chat_add)
+    @BindView(R.id.btn_chat_add)
     Button btn_chat_add;
-    @Bind(R.id.btn_chat_emo)
+    @BindView(R.id.btn_chat_emo)
     Button btn_chat_emo;
-    @Bind(R.id.btn_speak)
+    @BindView(R.id.btn_speak)
     Button btn_speak;
-    @Bind(R.id.btn_chat_voice)
+    @BindView(R.id.btn_chat_voice)
     Button btn_chat_voice;
-    @Bind(R.id.btn_chat_keyboard)
+    @BindView(R.id.btn_chat_keyboard)
     Button btn_chat_keyboard;
-    @Bind(R.id.btn_chat_send)
+    @BindView(R.id.btn_chat_send)
     Button btn_chat_send;
 
-    @Bind(R.id.layout_more)
+    @BindView(R.id.layout_more)
     LinearLayout layout_more;
-    @Bind(R.id.layout_add)
+    @BindView(R.id.layout_add)
     LinearLayout layout_add;
-    @Bind(R.id.layout_emo)
+    @BindView(R.id.layout_emo)
     LinearLayout layout_emo;
 
     // 语音有关
-    @Bind(R.id.layout_record)
+    @BindView(R.id.layout_record)
     RelativeLayout layout_record;
-    @Bind(R.id.tv_voice_tips)
+    @BindView(R.id.tv_voice_tips)
     TextView tv_voice_tips;
-    @Bind(R.id.iv_record)
+    @BindView(R.id.iv_record)
     ImageView iv_record;
     private Drawable[] drawable_Anims;// 话筒动画
     BmobRecordManager recordManager;
