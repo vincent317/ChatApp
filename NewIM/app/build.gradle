@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "cn.bmob.imdemo"
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion 25
         versionCode 10
         versionName "2.1.0"
@@ -57,8 +57,8 @@ dependencies {
     implementation 'org.greenrobot:eventbus:3.0.0'
 
     //TODO 集成：1.2、配置IM SDK（bmob-im）版本和Data SDK（bmob-sdk）版本：特定版本的bmob-im依赖特定版本的bmob-sdk
-    implementation 'cn.bmob.android:bmob-im:2.1.0@aar'
-    implementation 'cn.bmob.android:bmob-sdk:3.6.1'
+    implementation 'cn.bmob.android:bmob-sdk:3.6.3'
+    implementation 'cn.bmob.android:bmob-im:2.1.1@aar'
 
 
     //汉字转拼音

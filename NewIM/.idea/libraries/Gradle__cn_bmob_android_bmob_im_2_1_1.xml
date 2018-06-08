@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: cn.bmob.android:bmob-im-2.1.1">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/bmob-im-2.1.1.aar/e797209afebbf917061c0b79f46eee96/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/bmob-im-2.1.1.aar/e797209afebbf917061c0b79f46eee96/jars/libs/BmobNewIM_2.1.1_20180608.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/bmob-im-2.1.1.aar/e797209afebbf917061c0b79f46eee96/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/bmob-im-2.1.1.aar/e797209afebbf917061c0b79f46eee96/jars/libs/androidasync-2.1.6.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
