@@ -2,9 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="cn.bmob.imdemo">
 
-    <uses-sdk
-        android:minSdkVersion="9"
-        android:targetSdkVersion="16"/>
+
 
 
      <!--TODO 1.4、配置IM SDK需要的权限-->

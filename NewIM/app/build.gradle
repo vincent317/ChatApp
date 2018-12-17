@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '27.0.3'
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
 
     aaptOptions.cruncherEnabled = false
     aaptOptions.useNewCruncher = false
@@ -10,7 +10,7 @@ android {
     defaultConfig {
         applicationId "cn.bmob.imdemo"
         minSdkVersion 16
-        targetSdkVersion 25
+        targetSdkVersion 28
         versionCode 10
         versionName "2.1.0"
     }
@@ -51,8 +51,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:25.3.0'
-    implementation 'com.android.support:recyclerview-v7:25.3.0'
+    implementation 'com.android.support:appcompat-v7:28.+'
+    implementation 'com.android.support:recyclerview-v7:28.+'
     implementation 'com.orhanobut:logger:1.4'
     implementation 'org.greenrobot:eventbus:3.0.0'
 

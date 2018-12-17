@@ -216,7 +216,6 @@ public class ContactFragment extends ParentWithNaviFragment {
      */
     public void query() {
         UserModel.getInstance().queryFriends(
-
                 new FindListener<Friend>() {
                     @Override
                     public void done(List<Friend> list, BmobException e) {

@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Gradle: cn.bmob.android:bmob-sdk-3.6.3">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/bmob-sdk-3.6.3.aar/57299bd6b1bac43ea566d99d3c125692/jars/libs/rxandroid-1.2.0.jar!/" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/bmob-sdk-3.6.3.aar/57299bd6b1bac43ea566d99d3c125692/jars/libs/BmobSDK_3.6.3_20180608.jar!/" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/bmob-sdk-3.6.3.aar/57299bd6b1bac43ea566d99d3c125692/jars/libs/gson-2.6.2.jar!/" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/bmob-sdk-3.6.3.aar/57299bd6b1bac43ea566d99d3c125692/jars/libs/rxjava-1.1.6.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/bmob-sdk-3.6.3.aar/57299bd6b1bac43ea566d99d3c125692/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/bmob-sdk-3.6.3.aar/57299bd6b1bac43ea566d99d3c125692/jars/classes.jar!/" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/bmob-sdk-3.6.3.aar/57299bd6b1bac43ea566d99d3c125692/jars/libs/okio-1.12.0.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/bmob-sdk-3.6.3.aar/782d262e7785d749b74ee1638a0d70f3/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/bmob-sdk-3.6.3.aar/782d262e7785d749b74ee1638a0d70f3/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/bmob-sdk-3.6.3.aar/782d262e7785d749b74ee1638a0d70f3/jars/libs/gson-2.6.2.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/bmob-sdk-3.6.3.aar/782d262e7785d749b74ee1638a0d70f3/jars/libs/BmobSDK_3.6.3_20180608.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/bmob-sdk-3.6.3.aar/782d262e7785d749b74ee1638a0d70f3/jars/libs/rxjava-1.1.6.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/bmob-sdk-3.6.3.aar/782d262e7785d749b74ee1638a0d70f3/jars/libs/okio-1.12.0.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/bmob-sdk-3.6.3.aar/782d262e7785d749b74ee1638a0d70f3/jars/libs/rxandroid-1.2.0.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
