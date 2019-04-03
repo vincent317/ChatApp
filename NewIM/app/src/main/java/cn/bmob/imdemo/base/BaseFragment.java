@@ -5,12 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.support.v4.app.Fragment;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.orhanobut.logger.Logger;
 
+import androidx.fragment.app.Fragment;
 import cn.bmob.imdemo.Config;
 
 /**基类

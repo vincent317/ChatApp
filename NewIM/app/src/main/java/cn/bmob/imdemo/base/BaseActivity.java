@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -17,6 +16,7 @@ import com.orhanobut.logger.Logger;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import androidx.fragment.app.FragmentActivity;
 import butterknife.ButterKnife;
 import cn.bmob.imdemo.Config;
 

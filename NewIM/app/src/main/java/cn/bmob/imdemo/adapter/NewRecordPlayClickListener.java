@@ -35,7 +35,7 @@ public class NewRecordPlayClickListener implements View.OnClickListener {
 		currentMsg = msg;
 		currentPlayListener = this;
 		try {
-			currentObjectId = BmobUser.getCurrentUser().getObjectId();
+			currentObjectId = BmobUser.getCurrentUser(BmobUser.class).getObjectId();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

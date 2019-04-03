@@ -1,8 +1,11 @@
 package cn.bmob.imdemo.ui;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,6 +16,11 @@ import com.orhanobut.logger.Logger;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import butterknife.BindView;
 import cn.bmob.imdemo.R;
 import cn.bmob.imdemo.base.BaseActivity;
@@ -97,7 +105,50 @@ public class MainActivity extends BaseActivity {
         }
         //解决leancanary提示InputMethodManager内存泄露的问题
         IMMLeaks.fixFocusedViewLeak(getApplication());
+        checkStoragePermissions(0);
     }
+
+
+    /**
+     * TODO 1、兼容android6.0运行时权限
+     * 检查权限
+     *
+     * @param requestCode
+     */
+    public void checkStoragePermissions(int requestCode) {
+        List<String> permissions = new ArrayList<>();
+        int permissionCheckWrite = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (permissionCheckWrite != PackageManager.PERMISSION_GRANTED) {
+            permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+        int permissionCheckRead = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
+        if (permissionCheckRead != PackageManager.PERMISSION_GRANTED) {
+            permissions.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+        }
+        if (permissions.size() > 0) {
+            String[] missions = new String[]{};
+            ActivityCompat.requestPermissions(this, permissions.toArray(missions), requestCode);
+        } else {
+
+        }
+    }
+
+
+    /**
+     * TODO 1、兼容android6.0运行时权限
+     * <p>
+     * 权限授权结果
+     *
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+
 
 
     @Override

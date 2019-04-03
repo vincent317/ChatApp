@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
           package="cn.bmob.imdemo">
 
 
-
-
-     <!--TODO 1.4、配置IM SDK需要的权限-->
+    <!--TODO 1.4、配置IM SDK需要的权限-->
     <uses-permission android:name="android.permission.INTERNET"/>
     <!-- 监听网络的变化 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -54,7 +53,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
 
-         <!--TODO 集成：1.5、配置IM SDK需要的广播和服务-->
+        <!--TODO 集成：1.5、配置IM SDK需要的广播和服务-->
         <receiver android:name="cn.bmob.newim.core.ConnectChangeReceiver">
             <intent-filter>
                 <action android:name="cn.bmob.action.RECONNECT"/>
@@ -78,6 +77,21 @@
         <meta-data
             android:name="Bmob_APP_KEY"
             android:value="f5760a5c47302dcae15071632ab62c2d"/>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="cn.bmob.imdemo"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"/>
+        </provider>
+
+        <provider
+            android:name="cn.bmob.v3.util.BmobContentProvider"
+            android:authorities="cn.bmob.imdemo.BmobContentProvider">
+        </provider>
 
     </application>
 

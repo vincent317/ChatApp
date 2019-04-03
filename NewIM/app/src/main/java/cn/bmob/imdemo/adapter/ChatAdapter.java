@@ -1,7 +1,7 @@
 package cn.bmob.imdemo.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
@@ -52,7 +52,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     public ChatAdapter(Context context,BmobIMConversation c) {
         try {
-            currentUid = BmobUser.getCurrentUser().getObjectId();
+            currentUid = BmobUser.getCurrentUser(BmobUser.class).getObjectId();
         } catch (Exception e) {
             e.printStackTrace();
         }

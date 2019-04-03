@@ -4,9 +4,9 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -509,7 +509,7 @@ public class ChatActivity extends ParentWithNaviActivity implements MessageListH
     public void sendLocalImageMessage() {
         //TODO 发送消息：6.2、发送本地图片消息
         //正常情况下，需要调用系统的图库或拍照功能获取到图片的本地地址，开发者只需要将本地的文件地址传过去就可以发送文件类型的消息
-        BmobIMImageMessage image = new BmobIMImageMessage("/storage/emulated/0/netease/cloudmusic/网易云音乐相册/小梦大半_1371091013186741.jpg");
+        BmobIMImageMessage image = new BmobIMImageMessage("/storage/emulated/0/crop_file.jpg");
         mConversationManager.sendMessage(image, listener);
     }
 

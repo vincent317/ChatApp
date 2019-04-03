@@ -138,7 +138,7 @@ public class UserModel extends BaseModel {
         BmobQuery<User> query = new BmobQuery<>();
         //去掉当前用户
         try {
-            BmobUser user = BmobUser.getCurrentUser();
+            BmobUser user = BmobUser.getCurrentUser(BmobUser.class);
             query.addWhereNotEqualTo("username", user.getUsername());
         } catch (Exception e) {
             e.printStackTrace();
