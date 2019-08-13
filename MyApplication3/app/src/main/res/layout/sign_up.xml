@@ -1,0 +1,113 @@
+<LinearLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical"
+		android:background="@android:color/holo_blue_light">
+
+	<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:layout_weight="1.2"
+			android:orientation="horizontal">
+		<RelativeLayout
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="2.5">
+			<TextView
+					android:fontFamily="sans-serif-condensed"
+					android:textSize="70sp"
+					android:text="SIGN UP"
+					android:textColor="@android:color/white"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_alignParentBottom="true"
+					android:layout_centerInParent="true"/>
+		</RelativeLayout>
+
+		<TextView
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"/>
+	</LinearLayout>
+
+	<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:layout_weight="2.5"
+			android:orientation="vertical">
+
+		<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="0dp"
+				android:layout_weight="1">
+			<RelativeLayout
+					android:layout_width="0dp"
+					android:layout_height="match_parent"
+					android:layout_weight="1">
+					<android.support.design.widget.TextInputLayout
+						android:layout_width="wrap_content"
+						android:layout_centerInParent="true"
+						android:layout_height="wrap_content">
+						<android.support.design.widget.TextInputEditText
+								android:id="@+id/signup_username"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:hint="  username  "
+								android:fontFamily="sans-serif-condensed"
+								android:textColor="@android:color/holo_green_light"
+								android:textSize="35sp"/>
+				</android.support.design.widget.TextInputLayout>
+			</RelativeLayout>
+			<TextView
+					android:layout_width="0dp"
+					android:layout_height="match_parent"
+					android:layout_weight="1"/>
+		</LinearLayout>
+
+		<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="0dp"
+				android:layout_weight="1">
+			<RelativeLayout
+					android:layout_width="0dp"
+					android:layout_height="match_parent"
+					android:layout_weight="1">
+				<android.support.design.widget.TextInputLayout
+						android:layout_width="wrap_content"
+						android:layout_centerInParent="true"
+						android:layout_height="wrap_content">
+					<android.support.design.widget.TextInputEditText
+							android:id="@+id/signup_password"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:hint="  password  "
+							android:inputType="textPassword"
+							android:fontFamily="sans-serif-condensed"
+							android:textColor="@android:color/holo_green_light"
+							android:textSize="35sp"/>
+				</android.support.design.widget.TextInputLayout>
+			</RelativeLayout>
+			<TextView
+					android:layout_width="0dp"
+					android:layout_height="match_parent"
+					android:layout_weight="1"/>
+		</LinearLayout>
+
+
+		<RelativeLayout
+				android:layout_width="match_parent"
+				android:layout_height="0dp"
+				android:layout_weight="1.5">
+			<TextView
+					android:id="@+id/signup_finish"
+					android:layout_alignParentRight="true"
+					android:layout_alignParentBottom="true"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="->"
+					android:textColor="@android:color/white"
+					android:textSize="60sp"/>
+		</RelativeLayout>
+	</LinearLayout>
+</LinearLayout>

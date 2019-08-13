@@ -10,7 +10,8 @@ import java.util.concurrent.Executors;
 
 public class SocketServer {
 
-	private static final int port = 13333;
+	public static final String host = "106.13.165.209";
+	public static final int port = 13333;
 	private List<Socket> clients = new ArrayList<Socket>();
 	private ServerSocket server = null;
 	private ExecutorService threadPool = null;
