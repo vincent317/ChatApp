@@ -1,7 +1,6 @@
 package com.example.android.myapplication;
 
 import java.io.*;
-import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -10,22 +9,23 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class SocketServer {
-	
-	private static final int port = 1;
+
+	private static final int port = 13333;
 	private List<Socket> clients = new ArrayList<Socket>();
 	private ServerSocket server = null;
 	private ExecutorService threadPool = null;
-	
 
-    public static void main(String[] args)  {
-    	
+	//是否需要异常?
+	public static void main(String[] args){
        new SocketServer();
     }
-    
+
+    //todo 加一个LOG文件记录
     public SocketServer() {
     	try {
     		server = new ServerSocket(port);
     		threadPool = Executors.newCachedThreadPool();
+
     		while(true) {
     			Socket newClient = server.accept();
     			clients.add(newClient);
@@ -35,17 +35,16 @@ public class SocketServer {
     		e.printStackTrace();
     	}
     }
-    
+
+    //只开服务器一个线程，监听消息池（用queue)。
     class clientTask implements Runnable{
-    	
     	private Socket client;
     	private BufferedReader in = null;
-    	
+
     	private clientTask(Socket temp) {
     		client = temp;
     		try {
     			in = new BufferedReader(new InputStreamReader(client.getInputStream(), "UTF-8"));
-    			
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -53,7 +52,7 @@ public class SocketServer {
 
 		@Override
 		public void run() {
-			while(true) {
+    		while(true) {
 				try {
 					String msg = in.readLine();
 					if(msg != null) {
