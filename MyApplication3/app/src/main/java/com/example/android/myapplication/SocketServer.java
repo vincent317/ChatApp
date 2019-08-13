@@ -17,8 +17,8 @@ public class SocketServer {
 	public static void main(String[] args)  {
 		new SocketServer();
 	}
-    
-    public SocketServer() {
+	
+	public SocketServer() {
     	try {
     		server = new ServerSocket(port);
     		threadPool = Executors.newCachedThreadPool();
