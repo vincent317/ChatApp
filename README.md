@@ -1,4 +1,4 @@
-# 1、BmobNewIM SDK 介绍彭大治彭大治
+# 1、BmobNewIM SDK 介绍彭大同彭大同
 Android BmobIM SDK v2.0.0开始的版本统称为[BmobNewIM SDK](https://github.com/chaozhouzhang/bmob-newim-demo)，采用全新架构，设计更加合理规范，API更加简单易用，扩展性强。请确保您在使用BmobNewIM SDK之前已经了解此文档，如有疑问请加IM使用交流群[182897507]()咨询。
 
 ########### 1.1、特点描述
