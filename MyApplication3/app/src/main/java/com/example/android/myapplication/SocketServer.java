@@ -10,17 +10,13 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class SocketServer {
-	
 	private static final int port = 1;
 	private List<Socket> clients = new ArrayList<Socket>();
 	private ServerSocket server = null;
 	private ExecutorService threadPool = null;
-	
-
-    public static void main(String[] args)  {
-    	
-       new SocketServer();
-    }
+	public static void main(String[] args)  {
+		new SocketServer();
+	}
     
     public SocketServer() {
     	try {
