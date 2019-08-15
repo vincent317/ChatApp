@@ -52,7 +52,7 @@ public class ChatRoomActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.chat_room);
         messages = findViewById(R.id.messages);
         send = findViewById(R.id.send);
         edit = findViewById(R.id.editText);
@@ -123,7 +123,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                         if (client.isConnected()) {
                             if (!client.isOutputShutdown()) {
                                 try {
-                                    out.println(msg);
+                                    out.println("USRNAME:"+client.getInetAddress()+";MSG:"+msg+'\n');
                                     out.flush();
                                 } catch (Exception e) {
                                     e.printStackTrace();
@@ -139,10 +139,12 @@ public class ChatRoomActivity extends AppCompatActivity {
                 try {
                     while (true) {
                         if (client.isConnected() && !client.isInputShutdown()) {
-                            String content = in.readLine();
-                            int indexOfsemi = content.indexOf(':');
-                            if (content != null) {
-                                messList.add(new MyMessage(content.substring(0, indexOfsemi), content.substring(indexOfsemi + 1), new Date()));
+                            String processing = in.readLine();
+                            if(processing != null) {
+                                int firstend = processing.indexOf(";MSG:");
+                                String from = processing.substring(processing.indexOf(':') + 1, firstend);
+                                String message = processing.substring(firstend + 5);
+                                messList.add(new MyMessage(from, message, new Date()));
                                 handler.sendEmptyMessage(0x123);
                             }
                         }

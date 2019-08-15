@@ -46,12 +46,12 @@
 					android:layout_height="match_parent"
 					android:layout_weight="1">
 					<android.support.design.widget.TextInputLayout
-						android:layout_width="wrap_content"
-						android:layout_centerInParent="true"
+						android:layout_width="match_parent"
 						android:layout_height="wrap_content">
 						<android.support.design.widget.TextInputEditText
+								android:layout_centerInParent="true"
 								android:id="@+id/signup_username"
-								android:layout_width="wrap_content"
+								android:layout_width="match_parent"
 								android:layout_height="wrap_content"
 								android:hint="  username  "
 								android:fontFamily="sans-serif-condensed"
@@ -74,12 +74,12 @@
 					android:layout_height="match_parent"
 					android:layout_weight="1">
 				<android.support.design.widget.TextInputLayout
-						android:layout_width="wrap_content"
+						android:layout_width="match_parent"
 						android:layout_centerInParent="true"
 						android:layout_height="wrap_content">
 					<android.support.design.widget.TextInputEditText
 							android:id="@+id/signup_password"
-							android:layout_width="wrap_content"
+							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
 							android:hint="  password  "
 							android:inputType="textPassword"
