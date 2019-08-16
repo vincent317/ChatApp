@@ -41,7 +41,6 @@ public class ChatRoomActivity extends AppCompatActivity {
     public Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             if (msg.what == 0x123) {
-
                 messages.setAdapter(adapter);
                 messages.setSelection(adapter.getCount() - 1);
                 InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -140,7 +139,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                         String processing= in.readLine();
                         if(processing != null) {
                             int firstend = processing.indexOf(";MSG:");
-                            String from = processing.substring(processing.indexOf('/') + 1, firstend);
+                            String from = processing.substring(processing.indexOf(':') + 1, firstend);
                             String message = processing.substring(firstend + 5);
                             messList.add(new MyMessage(from, message, new Date()));
                             handler.sendEmptyMessage(0x123);

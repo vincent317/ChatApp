@@ -10,10 +10,14 @@
 			android:layout_height="0dp"
 			android:layout_weight="1.2"
 			android:orientation="horizontal">
+		<TextView
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"/>
 		<RelativeLayout
 				android:layout_width="0dp"
 				android:layout_height="match_parent"
-				android:layout_weight="2.5">
+				android:layout_weight="3.5">
 			<TextView
 					android:fontFamily="sans-serif-condensed"
 					android:textSize="70sp"
@@ -21,10 +25,8 @@
 					android:textColor="@android:color/white"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:layout_alignParentBottom="true"
-					android:layout_centerInParent="true"/>
+					android:layout_alignParentBottom="true"/>
 		</RelativeLayout>
-
 		<TextView
 				android:layout_width="0dp"
 				android:layout_height="match_parent"
@@ -41,22 +43,26 @@
 				android:layout_width="match_parent"
 				android:layout_height="0dp"
 				android:layout_weight="1">
+			<TextView android:layout_width="0dp"
+					  android:layout_height="match_parent"
+					  android:layout_weight="1"/>
 			<RelativeLayout
 					android:layout_width="0dp"
 					android:layout_height="match_parent"
-					android:layout_weight="1">
-					<android.support.design.widget.TextInputLayout
+					android:layout_weight="3">
+				<android.support.design.widget.TextInputLayout
 						android:layout_width="match_parent"
+						android:layout_centerInParent="true"
 						android:layout_height="wrap_content">
-						<android.support.design.widget.TextInputEditText
-								android:layout_centerInParent="true"
-								android:id="@+id/signup_username"
-								android:layout_width="match_parent"
-								android:layout_height="wrap_content"
-								android:hint="  username  "
-								android:fontFamily="sans-serif-condensed"
-								android:textColor="@android:color/holo_green_light"
-								android:textSize="35sp"/>
+					<android.support.design.widget.TextInputEditText
+							android:id="@+id/signup_username"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:hint="username"
+							android:inputType="textPassword"
+							android:fontFamily="sans-serif-condensed"
+							android:textColor="@android:color/holo_green_light"
+							android:textSize="35sp"/>
 				</android.support.design.widget.TextInputLayout>
 			</RelativeLayout>
 			<TextView
@@ -69,10 +75,13 @@
 				android:layout_width="match_parent"
 				android:layout_height="0dp"
 				android:layout_weight="1">
+			<TextView android:layout_width="0dp"
+					  android:layout_height="match_parent"
+			android:layout_weight="1"/>
 			<RelativeLayout
 					android:layout_width="0dp"
 					android:layout_height="match_parent"
-					android:layout_weight="1">
+					android:layout_weight="3">
 				<android.support.design.widget.TextInputLayout
 						android:layout_width="match_parent"
 						android:layout_centerInParent="true"
@@ -81,7 +90,7 @@
 							android:id="@+id/signup_password"
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
-							android:hint="  password  "
+							android:hint="password"
 							android:inputType="textPassword"
 							android:fontFamily="sans-serif-condensed"
 							android:textColor="@android:color/holo_green_light"
@@ -105,7 +114,7 @@
 					android:layout_alignParentBottom="true"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="->"
+					android:text=" -> "
 					android:textColor="@android:color/white"
 					android:textSize="60sp"/>
 		</RelativeLayout>

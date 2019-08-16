@@ -35,26 +35,11 @@ public class SignupActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.sign_up);
+		getSupportActionBar().hide();
 
 		username = (EditText)findViewById(R.id.signup_username);
 		password = (EditText)findViewById(R.id.signup_password);
 		finish = (TextView)findViewById(R.id.signup_finish);
-
-		Thread t1 = new Thread() {
-			public void run() {
-				try {
-					socket = new Socket(SocketServer.host, SocketServer.port);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		};
-		t1.start();
-		try {
-			t1.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 
 		finish.setOnClickListener(new View.OnClickListener(){
 			@Override
@@ -70,6 +55,7 @@ public class SignupActivity extends AppCompatActivity {
 							BufferedReader in = null;
 							PrintWriter out = null;
 							try {
+								socket = new Socket(SocketServer.host, SocketServer.port);
 								in = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
 								out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(
 									socket.getOutputStream(), "UTF-8")), true);
@@ -77,7 +63,7 @@ public class SignupActivity extends AppCompatActivity {
 									out.write("SIGNUP:" + uname + ";PASSWORD:" + upassword + '\n');
 									out.flush();
 								}
-								if(socket.isConnected()&&!socket.isInputShutdown()) {
+								if(socket.isConnected() && !socket.isInputShutdown()) {
 									String serverReturn = in.readLine();
 									out.write("DISCONNECT\n");
 									out.flush();

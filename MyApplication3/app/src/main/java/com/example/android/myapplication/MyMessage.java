@@ -21,7 +21,7 @@ public class MyMessage implements Serializable {
     }
 
     public String getTime(){
-        SimpleDateFormat sd = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat sd = new SimpleDateFormat ("MM-dd hh:mm:ss");
         return sd.format(time);
     }
 
