@@ -36,10 +36,12 @@ public class ChatRoomActivity extends AppCompatActivity {
     private EditText edit;
     private BaseAdapter adapter;
     private List<MyMessage> messList = new ArrayList<>();
+    private String username;
 
     public Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             if (msg.what == 0x123) {
+
                 messages.setAdapter(adapter);
                 messages.setSelection(adapter.getCount() - 1);
                 InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -56,15 +58,12 @@ public class ChatRoomActivity extends AppCompatActivity {
         messages = findViewById(R.id.messages);
         send = findViewById(R.id.send);
         edit = findViewById(R.id.editText);
-
         getSupportActionBar().hide();
-
         adapter = new BaseAdapter() {
             @Override
             public int getCount() {
                 return messList.size();
             }
-
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 LayoutInflater inflater = ChatRoomActivity.this.getLayoutInflater();
@@ -83,7 +82,6 @@ public class ChatRoomActivity extends AppCompatActivity {
                 text.setText(messList.get(position).getMessage());
                 return view;
             }
-
             @Override
             public long getItemId(int position) {
                 return 0;
@@ -94,6 +92,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                 return null;
             }
         };
+        username = getIntent().getExtras().getString("username");
 
         messages.setAdapter(adapter);
         Thread t1 = new Thread() {
@@ -114,39 +113,37 @@ public class ChatRoomActivity extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final String msg = edit.getText().toString();
                 new Thread() {
                     public void run() {
-                        if (client.isConnected()) {
-                            if (!client.isOutputShutdown()) {
-                                try {
-                                    out.println("USRNAME:"+client.getInetAddress()+";MSG:"+msg+'\n');
-                                    out.flush();
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
+                        if (client.isConnected() && !client.isOutputShutdown()) {
+                            try {
+                                out.write("USRNAME:"+username+";MSG:"+msg+'\n');
+                                out.flush();
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
                         }
                     }
                 }.start();
             }
         });
+
         new Thread() {
             public void run() {
                 try {
-                    while (true) {
-                        if (client.isConnected() && !client.isInputShutdown()) {
-                            String processing = in.readLine();
-                            if(processing != null) {
-                                int firstend = processing.indexOf(";MSG:");
-                                String from = processing.substring(processing.indexOf(':') + 1, firstend);
-                                String message = processing.substring(firstend + 5);
-                                messList.add(new MyMessage(from, message, new Date()));
-                                handler.sendEmptyMessage(0x123);
-                            }
+                    while(true){
+                        String processing= in.readLine();
+                        if(processing != null) {
+                            int firstend = processing.indexOf(";MSG:");
+                            String from = processing.substring(processing.indexOf('/') + 1, firstend);
+                            String message = processing.substring(firstend + 5);
+                            messList.add(new MyMessage(from, message, new Date()));
+                            handler.sendEmptyMessage(0x123);
                         }
                     }
                 } catch (Exception e) {

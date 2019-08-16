@@ -21,10 +21,13 @@ public class SignupActivity extends AppCompatActivity {
 	public Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
 			if (msg.what == 0x111) {
-				Intent signupPage = new Intent(SignupActivity.this, ChatRoomActivity.class);
-				startActivity(signupPage);
-			}else if(msg.what == 222){
-				Toast.makeText(SignupActivity.this,"密码错误！",Toast.LENGTH_SHORT);
+				Intent loginPage = new Intent(SignupActivity.this, MainActivity.class);
+				startActivity(loginPage);
+				finish();
+			}else if(msg.what == 0x222){
+				Toast.makeText(SignupActivity.this,"用户名已被使用！",Toast.LENGTH_SHORT).show();
+			}else if(msg.what == 0x333){
+				Toast.makeText(SignupActivity.this,"用户名/密码不得为空！",Toast.LENGTH_SHORT).show();
 			}
 		}
 	};
@@ -37,6 +40,22 @@ public class SignupActivity extends AppCompatActivity {
 		password = (EditText)findViewById(R.id.signup_password);
 		finish = (TextView)findViewById(R.id.signup_finish);
 
+		Thread t1 = new Thread() {
+			public void run() {
+				try {
+					socket = new Socket(SocketServer.host, SocketServer.port);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		};
+		t1.start();
+		try {
+			t1.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
 		finish.setOnClickListener(new View.OnClickListener(){
 			@Override
 			public void onClick(View v) {
@@ -44,24 +63,30 @@ public class SignupActivity extends AppCompatActivity {
 				final String upassword = password.getText().toString();
 
 				if (uname.length() == 0 || upassword.length() == 0) {
-					Toast.makeText(SignupActivity.this, "用户名或密码不得为空", Toast.LENGTH_LONG);
+					handler.sendEmptyMessage(0x333);
 				} else {
 					new Thread() {
 						public void run() {
-							Socket socket = null;
 							BufferedReader in = null;
 							PrintWriter out = null;
 							try {
 								in = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
 								out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(
 									socket.getOutputStream(), "UTF-8")), true);
-								out.write("SIGNUP"+ uname+";PASSWORD"+upassword+'\n');
-								out.flush();
-								String serverReturn = in.readLine();
-								if(serverReturn.startsWith("SUCCESSSIGNUP")){
-									handler.sendEmptyMessage(0x111);
-								}else if(serverReturn.startsWith("DUPLICATENAME")){
-									handler.sendEmptyMessage(0x222);
+								if(socket.isConnected() && !socket.isOutputShutdown()) {
+									out.write("SIGNUP:" + uname + ";PASSWORD:" + upassword + '\n');
+									out.flush();
+								}
+								if(socket.isConnected()&&!socket.isInputShutdown()) {
+									String serverReturn = in.readLine();
+									out.write("DISCONNECT\n");
+									out.flush();
+									socket.close();
+									if(serverReturn.equals("SUCCESSSIGNUP")){
+										handler.sendEmptyMessage(0x111);
+									}else if(serverReturn.equals("DUPLICATENAME")){
+										handler.sendEmptyMessage(0x222);
+									}
 								}
 							} catch (Exception e) {
 								e.printStackTrace();
