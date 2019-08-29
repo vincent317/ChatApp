@@ -16,7 +16,7 @@ import java.net.Socket;
 public class SignupActivity extends AppCompatActivity {
 	private EditText username, password;
 	private TextView finish;
-	private Socket socket;
+	private static Socket socket;
 
 	public Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
@@ -83,4 +83,32 @@ public class SignupActivity extends AppCompatActivity {
 			}
 		});
 	}
+
+	@Override
+	public void onDestroy(){
+		super.onDestroy();
+		clearConnection();
+	}
+
+	public static void clearConnection(){
+		if(socket!=null && socket.isConnected() && !socket.isClosed()){
+			try {
+				PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(
+					socket.getOutputStream(), "UTF-8")), true);
+				out.write("DISCONNECT\n");
+				out.flush();
+				socket.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+    @Override
+    public void onBackPressed() {
+	    clearConnection();
+        Intent loginPage = new Intent(SignupActivity.this, MainActivity.class);
+        startActivity(loginPage);
+        finish();
+    }
 }

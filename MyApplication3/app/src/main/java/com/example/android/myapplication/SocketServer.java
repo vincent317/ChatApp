@@ -1,7 +1,7 @@
 package com.example.android.myapplication;
 
 public class SocketServer {
-	public static final String host = "192.168.3.151";
+	public static final String host = "106.13.165.209";
 	public static final int port = 13345;
 }
 /*

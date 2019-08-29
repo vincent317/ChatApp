@@ -1,6 +1,7 @@
 package com.example.android.myapplication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -27,7 +28,7 @@ import java.util.Date;
 import java.util.List;
 
 public class ChatRoomActivity extends AppCompatActivity {
-    private Socket client;
+    private static Socket client;
     private BufferedReader in;
     private PrintWriter out;
     private ListView messages;
@@ -73,11 +74,11 @@ public class ChatRoomActivity extends AppCompatActivity {
                 } else {
                     view = convertView;
                 }
-                TextView time = (TextView) view.findViewById(R.id.time);
+                TextView time =  view.findViewById(R.id.time);
                 time.setText(messList.get(position).getTime());
-                TextView username = (TextView) view.findViewById(R.id.name);
+                TextView username =  view.findViewById(R.id.name);
                 username.setText(messList.get(position).getUsername());
-                TextView text = (TextView) view.findViewById(R.id.text);
+                TextView text =  view.findViewById(R.id.text);
                 text.setText(messList.get(position).getMessage());
                 return view;
             }
@@ -150,5 +151,33 @@ public class ChatRoomActivity extends AppCompatActivity {
                 }
             }
         }.start();
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        clearConnection();
+    }
+
+    public static void clearConnection(){
+        if(client!=null && client.isConnected() && !client.isClosed()){
+            try {
+                PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(
+                    client.getOutputStream(), "UTF-8")), true);
+                out.write("DISCONNECT\n");
+                out.flush();
+                client.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        clearConnection();
+        Intent loginPage = new Intent(ChatRoomActivity.this, MainActivity.class);
+        startActivity(loginPage);
+        finish();
     }
 }
